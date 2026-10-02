@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
 export default function Shop({ filter, setFilter, visibleProducts, openProduct }) {
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  // Reset pagination when category changes
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [filter]);
+
+  const displayedProducts = visibleProducts.slice(0, visibleCount);
+  const hasMore = visibleProducts.length > visibleCount;
+
   const staggerContainer = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
@@ -49,7 +60,7 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
         initial="hidden"
         animate="visible"
       >
-        {visibleProducts.map(p => (
+        {displayedProducts.map(p => (
           <motion.article 
             variants={fadeInUp}
             className="product" 
@@ -82,6 +93,20 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
           </motion.article>
         ))}
       </motion.div>
+
+      {hasMore && (
+        <motion.div 
+          variants={fadeInUp} 
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '45px' }}
+        >
+          <button 
+            className="button outline" 
+            onClick={() => setVisibleCount(prev => prev + 6)}
+          >
+            MOSTRAR MÁS PRODUCTOS
+          </button>
+        </motion.div>
+      )}
     </motion.section>
   );
 }
