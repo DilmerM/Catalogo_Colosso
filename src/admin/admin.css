@@ -131,6 +131,10 @@
   border-right: 1px solid #333;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease;
+}
+.sidebar-collapsed .admin-sidebar {
+  width: 70px;
 }
 .admin-sidebar-header {
   padding: 25px 20px;
@@ -144,7 +148,20 @@
   font-weight: 600;
   margin: 0;
 }
-.admin-close-sidebar {
+.admin-toggle-sidebar {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.admin-toggle-sidebar:hover {
+  color: #fff;
+}
+.admin-close-sidebar-mobile {
   display: none;
   background: none;
   border: none;
@@ -152,7 +169,7 @@
   cursor: pointer;
   padding: 5px;
 }
-.admin-close-sidebar:hover {
+.admin-close-sidebar-mobile:hover {
   color: #fff;
 }
 .admin-nav {
@@ -175,6 +192,15 @@
   align-items: center;
   gap: 10px;
   transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.sidebar-collapsed .admin-nav button {
+  padding: 12px;
+  justify-content: center;
+}
+.sidebar-collapsed .admin-nav button iconify-icon {
+  margin: 0;
 }
 .admin-nav button:hover {
   background: #2a2a2a;
@@ -191,11 +217,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 }
 .admin-sidebar-footer small {
   color: #888;
   font-size: 0.8rem;
   word-break: break-all;
+  text-align: center;
 }
 .admin-logout-btn {
   background: #2a2a2a;
@@ -205,6 +233,15 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+.sidebar-collapsed .admin-logout-btn {
+  padding: 8px;
+  justify-content: center;
 }
 .admin-logout-btn:hover {
   background: #333;
@@ -410,9 +447,67 @@
   border: none;
   color: #888;
   cursor: pointer;
-  padding: 5px;
-  transition: color 0.2s;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-actions-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.admin-edit-btn:hover {
+  color: #4a90e2;
+  background: rgba(74, 144, 226, 0.1);
 }
 .admin-delete-btn:hover {
   color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.admin-list-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.admin-search-box {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0 15px;
+  flex: 1;
+  max-width: 400px;
+  color: #888;
+}
+.admin-search-box input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  width: 100%;
+  outline: none;
+}
+.admin-filter-box {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0 15px;
+  color: #888;
+}
+.admin-filter-box select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  outline: none;
+  cursor: pointer;
 }

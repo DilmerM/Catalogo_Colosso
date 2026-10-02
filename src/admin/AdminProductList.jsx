@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
-export default function AdminProductList({ category }) {
+export default function AdminProductList({ category, onEdit }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterBrand, setFilterBrand] = useState('');
 
   useEffect(() => {
     fetchProducts();
@@ -58,8 +60,45 @@ export default function AdminProductList({ category }) {
     );
   }
 
+  const filteredProducts = products.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          (p.brand && p.brand.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesBrand = filterBrand === '' || p.brand === filterBrand;
+    return matchesSearch && matchesBrand;
+  });
+
+  const uniqueBrands = [...new Set(products.map(p => p.brand).filter(Boolean))];
+
   return (
     <div className="admin-product-list">
+      <div className="admin-list-controls">
+        <div className="admin-search-box">
+          <iconify-icon icon="mdi:magnify"></iconify-icon>
+          <input 
+            type="text" 
+            placeholder="Buscar por nombre o marca..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        {uniqueBrands.length > 0 && (
+          <div className="admin-filter-box">
+            <iconify-icon icon="mdi:filter-variant"></iconify-icon>
+            <select value={filterBrand} onChange={(e) => setFilterBrand(e.target.value)}>
+              <option value="">Todas las marcas</option>
+              {uniqueBrands.map(brand => (
+                <option key={brand} value={brand}>{brand}</option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
+
+      {filteredProducts.length === 0 && !loading ? (
+        <div className="admin-empty-state" style={{ marginTop: '20px' }}>
+          <p>No se encontraron resultados para tu búsqueda.</p>
+        </div>
+      ) : (
       <table className="admin-table">
         <thead>
           <tr>
@@ -87,14 +126,20 @@ export default function AdminProductList({ category }) {
               <td>${product.price}</td>
               <td>{new Date(product.created_at).toLocaleDateString()}</td>
               <td>
-                <button onClick={() => deleteProduct(product)} className="admin-icon-btn admin-delete-btn">
-                  <iconify-icon icon="mdi:trash-can-outline" style={{ fontSize: '18px' }}></iconify-icon>
-                </button>
+                <div className="admin-actions-group">
+                  <button onClick={() => onEdit(product)} className="admin-icon-btn admin-edit-btn" title="Editar">
+                    <iconify-icon icon="mdi:pencil-outline" style={{ fontSize: '18px' }}></iconify-icon>
+                  </button>
+                  <button onClick={() => deleteProduct(product)} className="admin-icon-btn admin-delete-btn" title="Eliminar">
+                    <iconify-icon icon="mdi:trash-can-outline" style={{ fontSize: '18px' }}></iconify-icon>
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      )}
     </div>
   );
 }

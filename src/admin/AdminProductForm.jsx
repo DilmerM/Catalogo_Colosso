@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
-export default function AdminProductForm({ category, onSaved, onCancel }) {
+export default function AdminProductForm({ category, productToEdit, onSaved, onCancel }) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '', slug: '', brand: '', description: '', price: '', discount_price: '',
@@ -10,6 +10,29 @@ export default function AdminProductForm({ category, onSaved, onCancel }) {
     dimensions: '', weight_capacity: '', features: '' // Máquinas
   });
   const [imageFile, setImageFile] = useState(null);
+
+  useEffect(() => {
+    if (productToEdit) {
+      setFormData({
+        name: productToEdit.name || '',
+        slug: productToEdit.slug || '',
+        brand: productToEdit.brand || '',
+        description: productToEdit.description || '',
+        price: productToEdit.price || '',
+        discount_price: productToEdit.discount_price || '',
+        gender: productToEdit.gender || 'Unisex',
+        sizes: Array.isArray(productToEdit.sizes) ? productToEdit.sizes.join(', ') : '',
+        colors: Array.isArray(productToEdit.colors) ? productToEdit.colors.join(', ') : '',
+        material: productToEdit.material || '',
+        weight: productToEdit.weight || '',
+        flavor: productToEdit.flavor || '',
+        type: productToEdit.type || '',
+        dimensions: productToEdit.dimensions || '',
+        weight_capacity: productToEdit.weight_capacity || '',
+        features: Array.isArray(productToEdit.features) ? productToEdit.features.join(', ') : ''
+      });
+    }
+  }, [productToEdit]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,6 +72,22 @@ export default function AdminProductForm({ category, onSaved, onCancel }) {
       let imageUrl = null;
       if (imageFile) {
         imageUrl = await uploadImageToR2(imageFile);
+        
+        // Delete old image if editing and uploading a new one
+        if (productToEdit && productToEdit.image_urls && productToEdit.image_urls.length > 0) {
+          try {
+            await fetch('/api/delete-image', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ imageUrls: productToEdit.image_urls })
+            });
+          } catch (err) {
+            console.error('Error deleting old image:', err);
+          }
+        }
+      } else if (productToEdit && productToEdit.image_urls) {
+        // Keep existing image if no new one is uploaded
+        imageUrl = productToEdit.image_urls[0];
       }
 
       // Prepare payload based on category
@@ -78,11 +117,18 @@ export default function AdminProductForm({ category, onSaved, onCancel }) {
         payload.features = formData.features.split(',').map(f => f.trim());
       }
 
-      const { error } = await supabase.from(category).insert([payload]);
+      let error;
+      if (productToEdit) {
+        const { error: updateError } = await supabase.from(category).update(payload).eq('id', productToEdit.id);
+        error = updateError;
+      } else {
+        const { error: insertError } = await supabase.from(category).insert([payload]);
+        error = insertError;
+      }
       
       if (error) throw error;
       
-      alert('Producto guardado correctamente');
+      alert(productToEdit ? 'Producto actualizado correctamente' : 'Producto guardado correctamente');
       onSaved();
     } catch (err) {
       console.error(err);
@@ -208,7 +254,7 @@ export default function AdminProductForm({ category, onSaved, onCancel }) {
       <div className="admin-form-actions">
         <button type="button" className="admin-logout-btn" onClick={onCancel} disabled={loading}>Cancelar</button>
         <button type="submit" className="admin-primary-btn" disabled={loading}>
-          {loading ? 'Guardando...' : 'Guardar Producto'}
+          {loading ? 'Guardando...' : (productToEdit ? 'Actualizar Producto' : 'Guardar Producto')}
         </button>
       </div>
     </form>
