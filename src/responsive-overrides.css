@@ -1644,13 +1644,7 @@ button,
     opacity: 1;
   }
   .mobile-slide-dots {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-    z-index: 6;
+    display: none;
   }
   .mobile-slide-dot {
     width: 6px;
