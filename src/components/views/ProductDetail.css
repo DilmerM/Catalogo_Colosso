@@ -204,6 +204,23 @@
 .pd-cta span {
   font-size: 17px;
 }
+.pd-share-btn {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 0 20px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+.pd-share-btn:hover {
+  background: var(--line);
+  color: var(--red);
+}
 
 /* ── Related Products ────────────────────── */
 .pd-related {

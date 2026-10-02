@@ -172,6 +172,25 @@ function App() {
     fetchProducts();
   }, []);
 
+  // Effect to automatically open product if shared URL parameters are present
+  useEffect(() => {
+    if (products.length === 0) return;
+    
+    const params = new URLSearchParams(window.location.search);
+    const pCat = params.get('pCat');
+    const pSlug = params.get('pSlug');
+    
+    if (pCat && pSlug) {
+      // Intentar encontrar el producto
+      const p = products.find(prod => prod.slug === pSlug && prod.kind.toLowerCase() === pCat.toLowerCase());
+      if (p) {
+        openProduct(p);
+        // Limpiar la URL para que no quede el query string
+        window.history.replaceState({}, '', '/');
+      }
+    }
+  }, [products]);
+
   const visibleProducts = (filter === 'TODO' || filter === 'ALL_PRODUCTS') ? products : products.filter(p => p.kind === filter);
   
   const isMainView = !selectedProduct && !showMachines;
