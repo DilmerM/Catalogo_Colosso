@@ -12,18 +12,11 @@ const S3 = new S3Client({
   },
 });
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
-
+async function test() {
   try {
-    const { filename, contentType } = req.body;
-    if (!filename || !contentType) {
-      return res.status(400).json({ error: 'Missing filename or contentType' });
-    }
-
-    // Clean up filename and add timestamp to avoid collisions
+    const filename = 'test.jpg';
+    const contentType = 'image/jpeg';
+    
     const safeFilename = `${Date.now()}-${filename.replace(/[^a-zA-Z0-9.\-_]/g, '')}`;
 
     const command = new PutObjectCommand({
@@ -33,13 +26,10 @@ export default async function handler(req, res) {
     });
 
     const url = await getSignedUrl(S3, command, { expiresIn: 3600 });
-    
-    // Construct the public URL that the image will be accessible at
-    const publicUrl = `${process.env.R2_PUBLIC_URL}/${safeFilename}`;
-
-    res.status(200).json({ uploadUrl: url, publicUrl });
+    console.log("Success! URL:", url);
   } catch (error) {
-    console.error('Error generating presigned URL', error);
-    res.status(500).json({ error: error.message || 'Failed to generate presigned URL' });
+    console.error("Error generated:", error);
   }
 }
+
+test();

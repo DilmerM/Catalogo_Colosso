@@ -23,7 +23,10 @@ export default function AdminProductForm({ category, onSaved, onCancel }) {
       body: JSON.stringify({ filename: file.name, contentType: file.type })
     });
     
-    if (!res.ok) throw new Error('Error getting presigned URL');
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.error || 'Error getting presigned URL');
+    }
     const { uploadUrl, publicUrl } = await res.json();
 
     // 2. Upload file to R2 directly using the presigned URL
