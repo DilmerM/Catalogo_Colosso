@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { modalService } from '../lib/modalService.js';
+import { toastService } from '../lib/toastService.js';
 
 export default function AdminRestore() {
   const [backups, setBackups] = useState([]);
@@ -29,7 +30,7 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al crear backup');
       
-      await modalService.alert('Respaldo creado exitosamente.');
+      toastService.success('Respaldo creado exitosamente.');
       fetchBackups();
     } catch (err) {
       console.error(err);
@@ -53,7 +54,7 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al restaurar backup');
       
-      await modalService.alert('¡Base de datos restaurada con éxito!');
+      toastService.success('¡Base de datos restaurada con éxito!');
       window.location.reload();
     } catch (err) {
       console.error(err);
@@ -76,7 +77,7 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al eliminar backup');
       
-      await modalService.alert('Respaldo eliminado.');
+      toastService.success('Respaldo eliminado.');
       fetchBackups();
     } catch (err) {
       console.error(err);

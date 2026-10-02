@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
+import CollageBackground from './CollageBackground.jsx';
+import { supabase } from '../../lib/supabase';
 
 export default function Home({ heroProduct, openProduct, setFilter }) {
   const fadeInUp = {
@@ -14,6 +16,23 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [collageConfig, setCollageConfig] = useState(null);
+
+  useEffect(() => {
+    // Read config for Collage on mount from Supabase
+    async function fetchConfig() {
+      const { data, error } = await supabase
+        .from('app_config')
+        .select('value')
+        .eq('key_name', 'collage_settings')
+        .maybeSingle();
+      
+      if (data && data.value) {
+        setCollageConfig(data.value);
+      }
+    }
+    fetchConfig();
+  }, []);
 
   useEffect(() => {
     if (!heroProduct || !heroProduct.images || heroProduct.images.length < 3) return;
@@ -27,11 +46,17 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
     <>
       <section className="hero hero-store" id="inicio" style={{ position: 'relative' }}>
         <GeometricShapes section="hero" />
-        <div className="hero-bg-carousel">
+        <div className="hero-bg-carousel" style={{ opacity: 0 }}>
           <div className="hero-bg-slide slide-1"></div>
           <div className="hero-bg-slide slide-2"></div>
           <div className="hero-bg-slide slide-3"></div>
         </div>
+        {collageConfig?.enabled !== false && (
+          <CollageBackground 
+            configImages={collageConfig?.images} 
+            imageFit={collageConfig?.imageFit || 'cover'} 
+          />
+        )}
         
         <motion.div 
           className="hero-copy"

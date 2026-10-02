@@ -14,6 +14,7 @@ import MachinesView from './components/views/MachinesView.jsx';
 import GeometricShapes from './components/GeometricShapes.jsx';
 import AdminApp from './admin/AdminApp.jsx';
 import GlobalModal from './components/GlobalModal.jsx';
+import GlobalToast from './components/GlobalToast.jsx';
 
 // ── Smooth Scroll ──────────────────────────────────────────────
 function easeInOutQuart(t) {
@@ -346,6 +347,7 @@ if (window.location.pathname === '/admin') {
   root.render(
     <>
       <GlobalModal />
+      <GlobalToast />
       <AdminApp />
     </>
   );
@@ -353,6 +355,7 @@ if (window.location.pathname === '/admin') {
   root.render(
     <>
       <GlobalModal />
+      <GlobalToast />
       <App />
     </>
   );

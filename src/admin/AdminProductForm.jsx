@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { modalService } from '../lib/modalService.js';
+import { toastService } from '../lib/toastService.js';
 
 export default function AdminProductForm({ category, productToEdit, onSaved, onCancel }) {
   const [loading, setLoading] = useState(false);
@@ -171,7 +172,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       
       if (error) throw error;
       
-      await modalService.alert(productToEdit ? 'Producto actualizado correctamente' : 'Producto guardado correctamente');
+      toastService.success(productToEdit ? 'Producto actualizado correctamente' : 'Producto guardado correctamente');
       onSaved();
     } catch (err) {
       console.error(err);

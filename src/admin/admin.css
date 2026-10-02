@@ -348,7 +348,7 @@
     transition: left 0.3s ease;
   }
   
-  .admin-dashboard.sidebar-open .admin-sidebar {
+  .admin-dashboard.mobile-sidebar-open .admin-sidebar {
     left: 0;
   }
   
@@ -364,7 +364,7 @@
     backdrop-filter: blur(2px);
   }
 
-  .admin-close-sidebar {
+  .admin-close-sidebar-mobile {
     display: flex;
   }
 
@@ -430,12 +430,19 @@
 }
 
 /* Table Styles */
+.admin-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
   background: #1a1a1a;
   border-radius: 12px;
   overflow: hidden;
+  min-width: 600px;
 }
 .admin-table th, .admin-table td {
   padding: 15px 20px;

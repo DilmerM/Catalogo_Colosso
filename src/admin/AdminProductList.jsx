@@ -130,20 +130,21 @@ export default function AdminProductList({ category, onEdit }) {
         </div>
       ) : (
       <>
-      <table className="admin-table">
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Activo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentProducts.map(product => (
-            <tr key={product.id}>
-              <td>
+      <div className="admin-table-wrapper">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentProducts.map(product => (
+              <tr key={product.id}>
+                <td>
                 {product.image_urls && product.image_urls.length > 0 ? (
                   <img src={product.image_urls[0]} alt={product.name} className="admin-table-img" />
                 ) : (
@@ -179,6 +180,7 @@ export default function AdminProductList({ category, onEdit }) {
           ))}
         </tbody>
       </table>
+      </div>
       
       {totalPages > 1 && (
         <div className="admin-pagination" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>

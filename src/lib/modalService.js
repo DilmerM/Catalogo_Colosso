@@ -29,7 +29,7 @@ export const modalService = {
         type: 'alert',
         message,
         onConfirm: () => {
-          modalState.isOpen = false;
+          modalState = { ...modalState, isOpen: false };
           notify();
           resolve();
         },
@@ -46,12 +46,12 @@ export const modalService = {
         type: 'confirm',
         message,
         onConfirm: () => {
-          modalState.isOpen = false;
+          modalState = { ...modalState, isOpen: false };
           notify();
           resolve(true);
         },
         onCancel: () => {
-          modalState.isOpen = false;
+          modalState = { ...modalState, isOpen: false };
           notify();
           resolve(false);
         }

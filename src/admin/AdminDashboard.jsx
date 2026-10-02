@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import AdminProductList from './AdminProductList';
 import AdminProductForm from './AdminProductForm';
 import AdminRestore from './AdminRestore';
+import AdminSettings from './AdminSettings';
 
 export default function AdminDashboard({ session }) {
   const [activeTab, setActiveTab] = useState('ropa');
@@ -92,10 +93,7 @@ export default function AdminDashboard({ session }) {
         
         <div className="admin-content-area">
           {activeTab === 'config' ? (
-            <div className="admin-empty-state">
-              <p>Configuración de la app</p>
-              <span>(En desarrollo)</span>
-            </div>
+            <AdminSettings />
           ) : activeTab === 'restore' ? (
             <AdminRestore />
           ) : isAdding || editingProduct ? (
