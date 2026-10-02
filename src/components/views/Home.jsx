@@ -90,31 +90,31 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
       >
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('ROPA')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:tshirt-crew-outline"></iconify-icon></span>
-          <img src="/ropa_category.jpg" alt="Ropa" style={{ position: 'absolute', right: '15px', top: '25px', width: '90px', height: '90px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }} />
+          <img src="/ropa_category.jpg" alt="Ropa" className="feature-card-img" />
           <strong>ROPA</strong><small>Legionarius</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('SUPLEMENTOS')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:shaker-outline"></iconify-icon></span>
-          <img src="/suplementos_category.jpg" alt="Suplementos" style={{ position: 'absolute', right: '15px', top: '25px', width: '90px', height: '90px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }} />
+          <img src="/suplementos_category.jpg" alt="Suplementos" className="feature-card-img" />
           <strong>SUPLEMENTOS</strong><small>Nutrición deportiva</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:dumbbell"></iconify-icon></span>
-          <img src="/maquinas_category.jpg" alt="Máquinas" style={{ position: 'absolute', right: '15px', top: '25px', width: '90px', height: '90px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }} />
+          <img src="/maquinas_category.jpg" alt="Máquinas" className="feature-card-img" />
           <strong>MÁQUINAS</strong><small>Fuerza y cardio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:floor-plan"></iconify-icon></span>
-          <img src="/asesoria_category.jpg" alt="Asesoría Gym" style={{ position: 'absolute', right: '15px', top: '25px', width: '90px', height: '90px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }} />
+          <img src="/asesoria_category.jpg" alt="Asesoría Gym" className="feature-card-img" />
           <strong>ASESORÍA GYM</strong><small>Diseña tu espacio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#ubicacion">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:truck-fast-outline"></iconify-icon></span>
-          <img src="/envios_category.jpg" alt="Envíos" style={{ position: 'absolute', right: '15px', top: '25px', width: '90px', height: '90px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }} />
+          <img src="/envios_category.jpg" alt="Envíos" className="feature-card-img" />
           <strong>ENVÍOS</strong><small>A todo México</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
