@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 
 export default function AdminProductForm({ category, productToEdit, onSaved, onCancel }) {
   const [loading, setLoading] = useState(false);
+  const textareaRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '', slug: '', brand: '', description: '', price: '', discount_price: '',
     gender: 'Unisex', sizes: '', colors: '', material: '', // Ropa
@@ -34,8 +35,25 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
     }
   }, [productToEdit]);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [formData.description]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDescriptionChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 500) {
+      setFormData({ ...formData, description: value });
+      // Auto-grow logic
+      e.target.style.height = 'auto';
+      e.target.style.height = `${e.target.scrollHeight}px`;
+    }
   };
 
   const uploadImageToR2 = async (file) => {
@@ -163,8 +181,21 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       </div>
 
       <div className="admin-form-group">
-        <label>Descripción</label>
-        <textarea name="description" rows="3" value={formData.description} onChange={handleChange}></textarea>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>Descripción</label>
+          <small style={{ color: formData.description.length >= 500 ? '#ff6b6b' : '#888', fontSize: '0.8rem' }}>
+            {formData.description.length}/500
+          </small>
+        </div>
+        <textarea 
+          ref={textareaRef}
+          name="description" 
+          rows="3" 
+          value={formData.description} 
+          onChange={handleDescriptionChange}
+          maxLength={500}
+          style={{ overflow: 'hidden', resize: 'none' }}
+        ></textarea>
       </div>
 
       {/* ROPA SPECIFIC */}
