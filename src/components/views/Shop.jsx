@@ -52,8 +52,7 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
       id="tienda"
       style={{ position: 'relative' }}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      animate="visible"
       variants={staggerContainer}
     >
       <GeometricShapes section="shop" />

@@ -87,8 +87,7 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
         className="hero-features" 
         aria-label="Categorías y beneficios de Iron Form"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate="visible"
         variants={staggerContainer}
       >
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('ROPA')}>
@@ -127,8 +126,7 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
         className="mobile-photo-strip" 
         aria-label="Tienda de equipamiento fitness"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate="visible"
         variants={fadeInUp}
       >
         <div className="mobile-photo-copy">
