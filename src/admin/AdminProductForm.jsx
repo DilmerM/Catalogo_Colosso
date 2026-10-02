@@ -92,27 +92,26 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
   };
 
   const uploadImageToR2 = async (file) => {
-    // 1. Get presigned URL from Vercel API
-    const res = await fetch('/api/get-presigned-url', {
+    // 1. Convert file to base64
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    // 2. Send to server for WebP conversion and upload
+    const res = await fetch('/api/upload-image', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filename: file.name, contentType: file.type })
+      body: JSON.stringify({ filename: file.name, imageBase64: base64 })
     });
     
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Error getting presigned URL');
+      throw new Error(errorData.error || 'Error uploading image');
     }
-    const { uploadUrl, publicUrl } = await res.json();
-
-    // 2. Upload file to R2 directly using the presigned URL
-    const uploadRes = await fetch(uploadUrl, {
-      method: 'PUT',
-      headers: { 'Content-Type': file.type },
-      body: file
-    });
-
-    if (!uploadRes.ok) throw new Error('Error uploading to R2');
+    const { publicUrl } = await res.json();
 
     return publicUrl;
   };
