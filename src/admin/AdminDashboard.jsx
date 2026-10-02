@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import AdminProductList from './AdminProductList';
 import AdminProductForm from './AdminProductForm';
+import AdminRestore from './AdminRestore';
 
 export default function AdminDashboard({ session }) {
   const [activeTab, setActiveTab] = useState('ropa');
@@ -96,11 +97,7 @@ export default function AdminDashboard({ session }) {
               <span>(En desarrollo)</span>
             </div>
           ) : activeTab === 'restore' ? (
-            <div className="admin-empty-state">
-              <iconify-icon icon="mdi:backup-restore" style={{ fontSize: '48px', color: '#666', marginBottom: '10px' }}></iconify-icon>
-              <p>Restore Backup</p>
-              <span>Esta función estará disponible próximamente para restaurar copias de seguridad de la base de datos.</span>
-            </div>
+            <AdminRestore />
           ) : isAdding || editingProduct ? (
             <AdminProductForm 
               category={activeTab} 

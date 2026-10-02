@@ -1,4 +1,4 @@
-import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, DeleteObjectCommand, CopyObjectCommand } from '@aws-sdk/client-s3';
 
 const R2_ACCOUNT_ID = 'd8b53209d688de9651a84beaf255719a';
 
@@ -35,11 +35,28 @@ export default async function handler(req, res) {
         const key = urlObj.pathname.substring(1); // Remove leading slash
         
         if (key) {
-          const command = new DeleteObjectCommand({
+          const decodedKey = decodeURIComponent(key);
+          
+          // 1. Copy to trash/
+          const copyCommand = new CopyObjectCommand({
             Bucket: bucketName,
-            Key: decodeURIComponent(key),
+            CopySource: `${bucketName}/${decodedKey}`,
+            Key: `trash/${decodedKey}`,
           });
-          await S3.send(command);
+          
+          try {
+            await S3.send(copyCommand);
+            
+            // 2. Delete original
+            const deleteCommand = new DeleteObjectCommand({
+              Bucket: bucketName,
+              Key: decodedKey,
+            });
+            await S3.send(deleteCommand);
+          } catch (e) {
+            // Ignore if it doesn't exist
+            console.error(`Failed to move ${decodedKey} to trash:`, e.message);
+          }
         }
       } catch (parseErr) {
         console.error(`Invalid URL to delete: ${url}`);
