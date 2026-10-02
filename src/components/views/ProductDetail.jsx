@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { products } from '../../data/products.js';
 import './ProductDetail.css';
 import GeometricShapes from '../GeometricShapes.jsx';
 import { modalService } from '../../lib/modalService.js';
 
-export default function ProductDetail({ selectedProduct, activeImage, setActiveImage, closeProduct, setFilter, openProduct }) {
+export default function ProductDetail({ selectedProduct, activeImage, setActiveImage, closeProduct, setFilter, openProduct, allProducts }) {
   const [selectedSize, setSelectedSize] = useState(null);
   
   if (!selectedProduct) return null;
@@ -112,7 +111,7 @@ export default function ProductDetail({ selectedProduct, activeImage, setActiveI
       <div className="pd-related">
         <h3>COINCIDENCIAS</h3>
         <div className="pd-related-grid">
-          {products
+          {allProducts
             .filter(p => p.kind === selectedProduct.kind && p.name !== selectedProduct.name)
             .slice(0, 4)
             .map(p => (

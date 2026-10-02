@@ -317,6 +317,7 @@ function App() {
           closeProduct={closeProduct}
           setFilter={setFilter}
           openProduct={openProduct}
+          allProducts={products}
         />
       )}
 
