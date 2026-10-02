@@ -29,7 +29,7 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
           <h2>TODO PARA<br/><em>ENTRENAR.</em></h2>
         </motion.div>
         <motion.div className="filters" variants={fadeInUp}>
-          {['TODO','PLAYERAS','TOPS','SHORTS','ROPA'].map(x => (
+          {['TODO','PLAYERAS','TOPS','SHORTS','ROPA','SUPLEMENTOS'].map(x => (
             <button key={x} className={filter===x ? 'active' : ''} onClick={() => setFilter(x)}>{x}</button>
           ))}
         </motion.div>
@@ -39,6 +39,7 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
         <button onClick={() => setFilter('PLAYERAS')}><span>01</span><strong>PLAYERAS</strong><small>Oversize · Sudaderas</small></button>
         <button onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small></button>
         <button onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small></button>
+        <button onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small></button>
       </motion.div>
       
       <motion.div 

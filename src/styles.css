@@ -3,3 +3,136 @@
 
 /* Global Styles Restored */
 .app{display:flex;flex-direction:column}.app>.nav{order:0}.app>.hero{order:1}.app>.stats{order:2}.app>.shop{order:3}.app>.services{order:4}.app>.plans{order:5}.app>.cta{order:6}.map-section{order:7}.app>footer{order:8}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 2%,transparent 65%),url('/hero-legionarius.png') center/cover;opacity:.48;z-index:0}.hero>*{position:relative;z-index:1}.hero-art{z-index:2!important}.nav a,.nav button{font-size:14px}.nav .brand{font-size:24px}.nav .menu{font-size:14px}footer p,footer div{font-size:12px}footer .brand{font-size:24px}.map-section{padding:80px 5.5% 0;background:var(--panel)}.map-section h2{font:600 clamp(30px,4vw,52px)/1 Unbounded;margin:0 0 24px;letter-spacing:-3px}.map-section h2 span{color:var(--red)}.map-wrap{height:330px;border:2px solid var(--ink);overflow:hidden}.map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(1) contrast(1.1)}.footer-new{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:68px 5.5% 25px;background:var(--bg);border-top:0}.footer-new .brand{font-size:27px}.footer-new h3{font:600 13px Unbounded;margin:8px 0 18px}.footer-new p,.footer-new a,.footer-new li{font:13px/1.65 Manrope;color:var(--muted);text-decoration:none}.footer-new ul{list-style:none;padding:0;margin:0}.footer-new li{margin-bottom:7px}.footer-new strong{color:var(--ink)}.footer-new .accent{color:var(--red);font-weight:800}.footer-bottom{grid-column:1/-1;border-top:1px solid var(--line);margin-top:35px;padding-top:22px;display:flex;justify-content:space-between}.footer-bottom p{font:11px 'DM Mono'}.footer-bottom a{font:11px 'DM Mono';color:var(--ink)}@media(max-width:800px){.map-section{padding:55px 5% 0}.map-wrap{height:260px}.footer-new{grid-template-columns:1fr 1fr;gap:30px;padding:48px 5% 22px}.footer-new .footer-about{grid-column:1/-1}.footer-bottom{gap:12px;flex-direction:column}.footer-new p,.footer-new a,.footer-new li{font-size:12px}}
+
+/* ── Navbar Search ── */
+.nav-search-container {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+  margin: 0 20px;
+}
+@media (max-width: 768px) {
+  .nav-search-container {
+    max-width: 100%;
+    margin: 10px 0;
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+.nav-search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 5px 15px;
+  transition: all 0.3s ease;
+}
+.app.light .nav-search-input-wrapper {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+.nav-search-input-wrapper:focus-within {
+  border-color: var(--red);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(217, 50, 37, 0.2);
+}
+.search-icon {
+  font-size: 1.2rem;
+  color: #888;
+  margin-right: 8px;
+}
+.nav-search-input {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+}
+.search-clear {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.search-clear:hover {
+  color: var(--red);
+}
+
+/* Search Results Dropdown */
+.nav-search-results {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+  z-index: 1000;
+  animation: slideDownFade 0.2s ease-out forwards;
+}
+.app.light .nav-search-results {
+  background: #fff;
+  border-color: #eee;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #222;
+  transition: background 0.2s;
+}
+.app.light .search-result-item {
+  border-bottom-color: #f5f5f5;
+}
+.search-result-item:last-child {
+  border-bottom: none;
+}
+.search-result-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.app.light .search-result-item:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+.search-result-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 12px;
+}
+.search-result-info {
+  display: flex;
+  flex-direction: column;
+}
+.search-result-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.search-result-price {
+  font-size: 0.8rem;
+  color: var(--red);
+  font-weight: 700;
+}
+.search-result-empty {
+  padding: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+}

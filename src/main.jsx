@@ -97,10 +97,15 @@ function App() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data, error } = await supabase.from('ropa').select('*').is('is_active', true).order('created_at', { ascending: false });
-      if (!error && data) {
-        // Map Supabase schema to frontend schema
-        const mappedProducts = data.map(p => {
+      const [ropaRes, supsRes] = await Promise.all([
+        supabase.from('ropa').select('*').is('is_active', true).order('created_at', { ascending: false }),
+        supabase.from('suplementos').select('*').is('is_active', true).order('created_at', { ascending: false })
+      ]);
+
+      let combined = [];
+
+      if (!ropaRes.error && ropaRes.data) {
+        const mappedRopa = ropaRes.data.map(p => {
           let kind = 'ROPA';
           const name = p.name.toUpperCase();
           if (name.includes('PLAYERA') || name.includes('OVERSIZE')) kind = 'PLAYERAS';
@@ -116,8 +121,24 @@ function App() {
             price: `$${p.price.toFixed(2)} MXN`
           };
         });
-        setProducts(mappedProducts);
+        combined = [...combined, ...mappedRopa];
       }
+
+      if (!supsRes.error && supsRes.data) {
+        const mappedSups = supsRes.data.map(p => {
+          return {
+            ...p,
+            kind: 'SUPLEMENTOS',
+            sub: 'SUPLEMENTO',
+            image: p.image_urls && p.image_urls.length > 0 ? p.image_urls[0] : '',
+            images: p.image_urls || [],
+            price: `$${p.price.toFixed(2)} MXN`
+          };
+        });
+        combined = [...combined, ...mappedSups];
+      }
+
+      setProducts(combined);
     }
     fetchProducts();
   }, []);
@@ -129,7 +150,7 @@ function App() {
 
   return (
     <main className={light ? 'app light' : 'app'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      <Header light={light} setLight={setLight} closeProduct={closeProduct} setShowMachines={setShowMachines} />
+      <Header light={light} setLight={setLight} closeProduct={closeProduct} setShowMachines={setShowMachines} products={products} openProduct={openProduct} />
 
       <div style={{ display: isMainView ? 'block' : 'none' }}>
         <Home heroProduct={heroProduct} openProduct={openProduct} setFilter={setFilter} />
