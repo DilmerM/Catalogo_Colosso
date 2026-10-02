@@ -42,13 +42,20 @@ export default function Header({ light, setLight, closeProduct, setShowMachines,
   return (
     <header className="nav">
       <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} className="brand" href="#inicio">IRON<span>/</span>FORM</a>
-      
+
+      <nav>
+        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#inicio">Inicio</a>
+        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#equipo-fuerza">Asesoría Gyms</a>
+        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#tienda">Suplementos</a>
+        <a onClick={(e) => { e.preventDefault(); closeProduct && closeProduct(); setShowMachines && setShowMachines(true); window.scrollTo(0,0); }} href="#">Máquinas</a>
+      </nav>
+
       <div className="nav-search-container" ref={searchRef}>
         <div className="nav-search-input-wrapper">
           <iconify-icon icon="mdi:magnify" className="search-icon"></iconify-icon>
           <input 
             type="text" 
-            placeholder="Buscar productos..." 
+            placeholder="Buscar..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}
@@ -79,13 +86,6 @@ export default function Header({ light, setLight, closeProduct, setShowMachines,
           </div>
         )}
       </div>
-
-      <nav>
-        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#inicio">Inicio</a>
-        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#equipo-fuerza">Asesoría Gyms</a>
-        <a onClick={() => { closeProduct && closeProduct(); setShowMachines && setShowMachines(false); }} href="#tienda">Suplementos</a>
-        <a onClick={(e) => { e.preventDefault(); closeProduct && closeProduct(); setShowMachines && setShowMachines(true); window.scrollTo(0,0); }} href="#">Máquinas</a>
-      </nav>
     </header>
   );
 }

@@ -7,17 +7,7 @@
 /* ── Navbar Search ── */
 .nav-search-container {
   position: relative;
-  flex: 1;
-  max-width: 300px;
   margin: 0 20px;
-}
-@media (max-width: 768px) {
-  .nav-search-container {
-    max-width: 100%;
-    margin: 10px 0;
-    order: 3;
-    flex-basis: 100%;
-  }
 }
 .nav-search-input-wrapper {
   display: flex;
@@ -142,21 +132,34 @@
 
 /* ── Navbar Fixes ── */
 .app > .nav {
-  z-index: 9999 !important; /* Ensure nav is above everything, including hero text */
+  z-index: 9999 !important;
+}
+
+/* Desktop: search doesn't grow too big */
+.nav-search-container {
+  max-width: 220px;
+  flex-shrink: 1;
 }
 
 @media (max-width: 800px) {
-  .nav {
-    height: auto !important;
-    min-height: 67px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    flex-wrap: wrap;
-  }
   .nav-search-container {
-    margin: 10px 0 5px !important;
-    max-width: 100% !important;
-    order: 3;
-    flex-basis: 100%;
+    max-width: none !important;
+    width: auto !important;
+    flex: 1 1 0 !important;
+    margin: 0 10px !important;
+    order: unset;
+    flex-basis: auto !important;
+  }
+  .nav-search-input-wrapper {
+    padding: 4px 10px;
+  }
+  .nav-search-input {
+    font-size: 0.8rem;
+  }
+  /* Ensure the dropdown is wide enough on mobile */
+  .nav-search-results {
+    width: calc(100vw - 32px);
+    left: auto;
+    right: -16px;
   }
 }
