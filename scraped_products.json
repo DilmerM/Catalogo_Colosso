@@ -1,0 +1,90 @@
+[
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "SUDADERA OVERSIZE MORTIFER",
+    "price": "$699.00 MXN",
+    "image": "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER.jpg"
+  },
+  {
+    "kind": "ROPA",
+    "sub": "GENERAL",
+    "brand": "LEGIONARIUS",
+    "name": "GORRA GALEATUS",
+    "price": "$399.00 MXN",
+    "image": "/legionarius_products/GORRA_GALEATUS.jpg"
+  },
+  {
+    "kind": "ROPA",
+    "sub": "GENERAL",
+    "brand": "LEGIONARIUS",
+    "name": "PANTS BAGGY PARA MORTEM",
+    "price": "$569.00 MXN",
+    "image": "/legionarius_products/PANTS_BAGGY_PARA_MORTEM.jpg"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE CHAMPION MENTALITY BLACK",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK.jpg"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE TENEBRAE",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_TENEBRAE.jpg"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE ACID BLACK",
+    "price": "$499.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_ACID_BLACK.jpg"
+  },
+  {
+    "kind": "TOPS",
+    "sub": "MUJER",
+    "brand": "LEGIONARIUS",
+    "name": "TOP DEPORTIVO",
+    "price": "$299.00 MXN",
+    "image": "/legionarius_products/TOP_DEPORTIVO.jpg"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE SNAKE",
+    "price": "$429.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_SNAKE.jpg"
+  },
+  {
+    "kind": "TOPS",
+    "sub": "MUJER",
+    "brand": "LEGIONARIUS",
+    "name": "BLUSA CROP TOP",
+    "price": "$399.00 MXN",
+    "image": "/legionarius_products/BLUSA_CROP_TOP.jpg"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "Mi tienda",
+    "name": "OVERSIZE MEMENTO MORI",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_MEMENTO_MORI.jpg"
+  },
+  {
+    "kind": "SHORTS",
+    "sub": "ENTRENAMIENTO",
+    "brand": "LEGIONARIUS",
+    "name": "SHORT IGNIS",
+    "price": "$349.00 MXN",
+    "image": "/legionarius_products/SHORT_IGNIS.jpg"
+  }
+]

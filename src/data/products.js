@@ -1,0 +1,231 @@
+export const products = [
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "SUDADERA OVERSIZE MORTIFER",
+    "price": "$699.00 MXN",
+    "image": "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER_1.jpg",
+    "images": [
+      "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER_1.jpg",
+      "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER_2.jpg",
+      "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER_3.jpg",
+      "/legionarius_products/SUDADERA_OVERSIZE_MORTIFER_4.jpg"
+    ],
+    "sizes": [
+      "L",
+      "S",
+      "M",
+      "XL"
+    ],
+    "description": "Sudadera Oversize Mortifer  \n Una sudadera diseñada para quienes no buscan pasar desapercibidos. \n La Mortifer combina un corte oversize con una confección premium en 100% algodón de felpa, ofreciendo una estructura firme, gran durabilidad y un confort superior. \n Cada pieza cuenta con un efecto visual único, haciendo que cada sudadera sea irrepetible. \n  Características  \n - 100% algodón de felpa premium: resistente, confortable y de excelente calidad. - Corte oversize: ajuste amplio y moderno que permite libertad de movimiento. - Costuras reforzadas: mayor resistencia para el uso diario. - Interior suave: sensación de confort durante todo el día. - Efecto visual único: cada pieza presenta detalles propios que la hacen irrepetible."
+  },
+  {
+    "kind": "ROPA",
+    "sub": "GENERAL",
+    "brand": "LEGIONARIUS",
+    "name": "GORRA GALEATUS",
+    "price": "$399.00 MXN",
+    "image": "/legionarius_products/GORRA_GALEATUS_1.jpg",
+    "images": [
+      "/legionarius_products/GORRA_GALEATUS_1.jpg",
+      "/legionarius_products/GORRA_GALEATUS_2.jpg",
+      "/legionarius_products/GORRA_GALEATUS_3.jpg",
+      "/legionarius_products/GORRA_GALEATUS_4.jpg"
+    ],
+    "sizes": [],
+    "description": "Gorra de perfil alto, estructurada y de excelente calidad, pensada para acompañarte en tus entrenamientos más intensos. \n Confeccionada en 100% algodón peinado, ofrece una sensación suave y cómoda durante todo el ejercicio. Su visera semicurva proporciona protección contra el sol, mientras que su banda de sudor de algodón mantiene tu frente seco y fresco. La unidad ajustable con sistema Snapback permite un ajuste perfecto, mientras que su amplia circunferencia se adapta a diferentes tamaños. Ideal para el gym, esta gorra combina durabilidad, confort y estilo en cada entrenamiento."
+  },
+  {
+    "kind": "ROPA",
+    "sub": "GENERAL",
+    "brand": "LEGIONARIUS",
+    "name": "PANTS BAGGY PARA MORTEM",
+    "price": "$569.00 MXN",
+    "image": "/legionarius_products/PANTS_BAGGY_PARA_MORTEM_1.jpg",
+    "images": [
+      "/legionarius_products/PANTS_BAGGY_PARA_MORTEM_1.jpg",
+      "/legionarius_products/PANTS_BAGGY_PARA_MORTEM_2.jpg"
+    ],
+    "sizes": [
+      "L",
+      "M",
+      "S",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n Pants corte baggy de 280gr en 100% algodón, diseñados para ofrecerte la máxima comodidad durante tus entrenamientos en el gym. Su tejido suave y ligero te brinda libertad de movimiento, mientras que la felpa de algodón proporciona una sensación cálida y agradable al tacto. Perfectos para tus rutinas más exigentes, estos pants ofrecen un ajuste cómodo que te mantiene a gusto durante todo el ejercicio, sin perder estilo ni funcionalidad. Ideal para quienes buscan comodidad y rendimiento en cada entrenamiento. \n  BENEFICIOS:  \n  Máxima frescura:  Tejido ligero y transpirable para entrenar sin límites. \n  Libertad total:  Corte baggy que mejora la movilidad. \n  Comodidad superior : algodón peinado que brinda suavidad y resistencia. \n  Estilo moderno:  perfecto para verte bien dentro y fuera del gym. \n  Luce y rinde al máximo en cada entrenamiento con LEGIONARIUS."
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE CHAMPION MENTALITY BLACK",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK_1.jpg",
+    "images": [
+      "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK_1.jpg",
+      "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK_2.jpg",
+      "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK_3.jpg",
+      "/legionarius_products/OVERSIZE_CHAMPION_MENTALITY_BLACK_4.jpg"
+    ],
+    "sizes": [
+      "L",
+      "M",
+      "S",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n “CHAMPION MENTALITY BLACK” es una playera semi-oversize en color negro, pensada para atletas que buscan comodidad sin perder estilo. Confeccionada con 100% algodón premium de 240gr. ofrece una sensación ligera y suave al tacto, ideal para entrenamientos de alto rendimiento sin sentirte pesado o limitado. Su tejido es transpirable y cómodo, manteniendo la frescura incluso en las sesiones más intensas. \n  BENEFICIOS:  \n   Máxima frescura:   tejido ligero y transpirable para entrenar sin límites. \n   Libertad total:   Su corte semi-oversize mejora la movilidad. \n   Comodidad superior:   algodón peinado que brinda suavidad y resistencia. \n   Estilo moderno:   perfecto para verte bien dentro y fuera del gym. \n   Luce y rinde al máximo en cada entrenamiento con Legionarius."
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE TENEBRAE",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_TENEBRAE_1.jpg",
+    "images": [
+      "/legionarius_products/OVERSIZE_TENEBRAE_1.jpg",
+      "/legionarius_products/OVERSIZE_TENEBRAE_2.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n “OVERSIZE TENEBRAE” es una playera oversize en color negro, pensada para atletas que buscan comodidad sin perder estilo. Confeccionada con 100% algodón premium de 240gr. ofrece una sensación ligera y suave al tacto, ideal para entrenamientos de alto rendimiento sin sentirte pesado o limitado. Su tejido es transpirable y cómodo, manteniendo la frescura incluso en las sesiones más intensas. \n  BENEFICIOS:  \n   Máxima frescura:   tejido ligero y transpirable para entrenar sin límites. \n   Libertad total:   Su corte oversize mejora la movilidad. \n   Comodidad superior:   algodón peinado que brinda suavidad y resistencia. \n   Estilo moderno:   perfecto para verte bien dentro y fuera del gym. \n   Luce y rinde al máximo en cada entrenamiento con Legionarius."
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE ACID BLACK",
+    "price": "$499.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_ACID_BLACK_1.jpg",
+    "images": [
+      "/legionarius_products/OVERSIZE_ACID_BLACK_1.jpg",
+      "/legionarius_products/OVERSIZE_ACID_BLACK_2.jpg",
+      "/legionarius_products/OVERSIZE_ACID_BLACK_3.jpg",
+      "/legionarius_products/OVERSIZE_ACID_BLACK_4.jpg"
+    ],
+    "sizes": [
+      "L",
+      "M",
+      "S",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n “ACID BLACK” es una playera semi-oversize en color negro acid wash, pensada para atletas que buscan comodidad sin perder estilo. Confeccionada con 100% algodón premium de 240gr. ofrece una sensación ligera y suave al tacto, ideal para entrenamientos de alto rendimiento sin sentirte pesado o limitado. Su tejido es transpirable y cómodo, manteniendo la frescura incluso en las sesiones más intensas. \n  BENEFICIOS:  \n   Máxima frescura:   tejido ligero y transpirable para entrenar sin límites. \n   Libertad total:   Su corte semi-oversize mejora la movilidad. \n   Comodidad superior:   algodón peinado que brinda suavidad y resistencia. \n   Estilo moderno:   perfecto para verte bien dentro y fuera del gym. \n   Luce y rinde al máximo en cada entrenamiento con Legionarius."
+  },
+  {
+    "kind": "TOPS",
+    "sub": "MUJER",
+    "brand": "LEGIONARIUS",
+    "name": "TOP DEPORTIVO",
+    "price": "$299.00 MXN",
+    "image": "/legionarius_products/TOP_DEPORTIVO_1.jpg",
+    "images": [
+      "/legionarius_products/TOP_DEPORTIVO_1.jpg",
+      "/legionarius_products/TOP_DEPORTIVO_2.jpg",
+      "/legionarius_products/TOP_DEPORTIVO_3.jpg",
+      "/legionarius_products/TOP_DEPORTIVO_4.jpg",
+      "/legionarius_products/TOP_DEPORTIVO_5.jpg",
+      "/legionarius_products/TOP_DEPORTIVO_6.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "CALIDAD:  \n \"TOP DEPORTIVO\" es un top deportivo para mujer diseñado para ofrecer comodidad, libertad de movimiento y un ajuste favorecedor en cada entrenamiento. Confeccionado con 93% poliamida y 7% elastano, su tejido suave y de alta calidad brinda una excelente elasticidad que se adapta al cuerpo sin perder su forma. Su diseño crop, con tirantes finos cruzados, espalda al aire y un elegante detalle de pliegues, combina funcionalidad y estilo. Además, su soporte medio proporciona la estabilidad ideal para acompañarte durante tus entrenamientos. \n  BENEFICIOS:  \n •⁠  ⁠Ajuste cómodo y favorecedor: se adapta al cuerpo para brindar mayor comodidad. •⁠  ⁠Excelente elasticidad: acompaña cada movimiento con total libertad. •⁠  ⁠Soporte medio: ideal para entrenamientos de intensidad moderada. •⁠  ⁠Diseño moderno: los tirantes cruzados, la espalda al aire y el detalle de pliegues ofrecen un estilo deportivo y elegante. •⁠  ⁠Ligero y resistente: diseñado para mantener su comodidad y durabilidad con el uso constante. \n Entrena con la confianza de llevar una prenda diseñada para acompañar cada movimiento. Con LEGIONARIUS, el rendimiento y el estilo avanzan contigo en cada desafío"
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "LEGIONARIUS",
+    "name": "OVERSIZE SNAKE",
+    "price": "$429.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_SNAKE_1.jpg",
+    "images": [
+      "/legionarius_products/OVERSIZE_SNAKE_1.jpg",
+      "/legionarius_products/OVERSIZE_SNAKE_2.jpg",
+      "/legionarius_products/OVERSIZE_SNAKE_3.jpg",
+      "/legionarius_products/OVERSIZE_SNAKE_4.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n “Snake” es una playera oversize de corte imponente, pensada para atletas que buscan comodidad sin perder estilo. Confeccionada con 100% algodón premium de 220gr. ofrece una sensación ligera y suave al tacto, ideal para entrenamientos de alto rendimiento sin sentirte pesado o limitado. Su tejido es transpirable y cómodo, manteniendo la frescura incluso en las sesiones más intensas. \n  BENEFICIOS:  \n   Máxima frescura:   tejido ligero y transpirable para entrenar sin límites. \n   Libertad total:   diseño sin mangas y corte Box Fit que mejora la movilidad. \n   Comodidad superior:   algodón peinado que brinda suavidad y resistencia. \n   Estilo moderno:   perfecto para verte bien dentro y fuera del gym. \n   Luce y rinde al máximo en cada entrenamiento con Legionarius."
+  },
+  {
+    "kind": "TOPS",
+    "sub": "MUJER",
+    "brand": "LEGIONARIUS",
+    "name": "BLUSA CROP TOP",
+    "price": "$399.00 MXN",
+    "image": "/legionarius_products/BLUSA_CROP_TOP_1.jpg",
+    "images": [
+      "/legionarius_products/BLUSA_CROP_TOP_1.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_2.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_3.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_4.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_5.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_6.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_7.jpg",
+      "/legionarius_products/BLUSA_CROP_TOP_8.jpg"
+    ],
+    "sizes": [
+      "M",
+      "S"
+    ],
+    "description": "CALIDAD:  \n \"BLUSA CROP TOP \" es una blusa crop deportiva para mujer diseñada para ofrecer comodidad, libertad de movimiento y un ajuste favorecedor en cada entrenamiento. Confeccionada con 90% poliamida y 10% elastano, su tejido de alto rendimiento es ligero, transpirable y de alta elasticidad, adaptándose al cuerpo de forma natural. Su diseño sin costuras, con escote halter y espalda al aire, brinda una sensación de frescura y comodidad, mientras su confección resistente al desgaste está pensada para acompañarte en cada reto dentro y fuera del gimnasio. \n  BENEFICIOS:  \n •⁠  ⁠Ajuste cómodo y favorecedor: su tejido elástico se adapta al cuerpo sin limitar tus movimientos. •⁠  ⁠Máxima transpirabilidad: mantiene una sensación de frescura durante todo el entrenamiento. •⁠  ⁠Diseño sin costuras: reduce la fricción para una experiencia más cómoda. •⁠  ⁠Espalda al aire y escote halter: combina libertad de movimiento con un estilo moderno y deportivo. •⁠  ⁠Ligera y resistente: confeccionada para soportar el uso constante sin perder su forma ni comodidad. \n Entrena con la confianza de llevar una prenda diseñada para acompañar cada repetición. Con LEGIONARIUS, el rendimiento y el estilo avanzan contigo en cada desafío."
+  },
+  {
+    "kind": "PLAYERAS",
+    "sub": "ROPA SUPERIOR",
+    "brand": "Mi tienda",
+    "name": "OVERSIZE MEMENTO MORI",
+    "price": "$449.00 MXN",
+    "image": "/legionarius_products/OVERSIZE_MEMENTO_MORI_1.jpg",
+    "images": [
+      "/legionarius_products/OVERSIZE_MEMENTO_MORI_1.jpg",
+      "/legionarius_products/OVERSIZE_MEMENTO_MORI_2.jpg",
+      "/legionarius_products/OVERSIZE_MEMENTO_MORI_3.jpg",
+      "/legionarius_products/OVERSIZE_MEMENTO_MORI_4.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "CALIDAD:  \n “MEMENTO MORI” es una playera Oversize de corte imponente, pensada para atletas que buscan comodidad sin perder estilo. Confeccionada con 100% algodón premium de 220gr. ofrece una sensación ligera y suave al tacto, ideal para entrenamientos de alto rendimiento sin sentirte pesado o limitado. Su tejido es transpirable y cómodo, manteniendo la frescura incluso en las sesiones más intensas. \n  BENEFICIOS:  \n   Máxima frescura:   tejido ligero y transpirable para entrenar sin límites. \n   Libertad total:   diseño oversize que mejora la movilidad. \n   Comodidad superior:   algodón peinado que brinda suavidad y resistencia. \n   Estilo moderno:   perfecto para verte bien dentro y fuera del gym. \n   Luce y rinde al máximo en cada entrenamiento con Legionarius."
+  },
+  {
+    "kind": "SHORTS",
+    "sub": "ENTRENAMIENTO",
+    "brand": "LEGIONARIUS",
+    "name": "SHORT IGNIS",
+    "price": "$349.00 MXN",
+    "image": "/legionarius_products/SHORT_IGNIS_1.jpg",
+    "images": [
+      "/legionarius_products/SHORT_IGNIS_1.jpg",
+      "/legionarius_products/SHORT_IGNIS_2.jpg",
+      "/legionarius_products/SHORT_IGNIS_3.jpg",
+      "/legionarius_products/SHORT_IGNIS_4.jpg",
+      "/legionarius_products/SHORT_IGNIS_5.jpg",
+      "/legionarius_products/SHORT_IGNIS_6.jpg",
+      "/legionarius_products/SHORT_IGNIS_7.jpg",
+      "/legionarius_products/SHORT_IGNIS_8.jpg",
+      "/legionarius_products/SHORT_IGNIS_9.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "CALIDAD:  \n  El Short Deportivo IGNIS está confeccionado con una mezcla de 90% nailon premium y 10% spándex flexible, ofreciendo una estructura altamente elástica que se adapta perfectamente al cuerpo sin limitar el movimiento.  \n  Su tecnología de compresión inteligente proporciona un ajuste ceñido de alto soporte, ayudando a definir la silueta, esculpir las curvas y brindar control en la zona abdominal, mientras su diseño ergonómico incorpora un levantamiento de glúteos discreto que realza la figura de forma natural.   La tela ligera, suave y resistente lo convierte en una prenda ideal tanto para entrenamientos intensos como para uso diario.  \n   \n  BENEFICIOS:  \n \n   Efecto sculpt:  compresión estratégica que moldea y estiliza la silueta.  \n   Control abdominal:  diseño de tiro alto que brinda soporte y seguridad.  \n   Realce natural:  sistema de levantamiento de glúteos oculto.  \n   Elasticidad total:  tejido flexible que permite libertad de movimiento en cualquier entrenamiento.  \n   Versatilidad premium:  ideal para fitness, yoga, deporte o uso diario con estilo Legionarius."
+  }
+];
