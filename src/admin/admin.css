@@ -298,6 +298,23 @@
 .admin-primary-btn:hover {
   background: #b82a1f;
 }
+.admin-secondary-btn {
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid #333;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-secondary-btn:hover {
+  background: rgba(217, 50, 37, 0.15);
+  border-color: #d93225;
+}
 .admin-content-area {
   padding: 40px;
   flex: 1;
