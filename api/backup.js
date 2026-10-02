@@ -66,7 +66,7 @@ export default async function handler(req, res) {
         { 
           file_url: fileUrl, 
           size_bytes: buffer.length, 
-          description: req.body.description || `Backup Automático ${new Date().toLocaleDateString()}` 
+          description: req.body?.description || `Backup Automático ${new Date().toLocaleDateString()}` 
         }
       ])
       .select();
