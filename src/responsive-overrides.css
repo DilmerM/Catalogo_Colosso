@@ -436,7 +436,8 @@ footer .brand {
 @media (max-width: 800px) {
   /* overflow:hidden en .app impide position:fixed — se corrige en mobile */
   .app {
-    overflow: visible !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
   }
 
   /* ── Navbar fixed en mobile ───────────────────── */
