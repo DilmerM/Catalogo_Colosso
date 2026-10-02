@@ -6,6 +6,8 @@ export default function AdminProductList({ category, onEdit }) {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterBrand, setFilterBrand] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     fetchProducts();
@@ -13,6 +15,7 @@ export default function AdminProductList({ category, onEdit }) {
 
   const fetchProducts = async () => {
     setLoading(true);
+    setCurrentPage(1);
     const { data, error } = await supabase.from(category).select('*').order('created_at', { ascending: false });
     if (error) {
       console.error('Error fetching products:', error);
@@ -69,6 +72,13 @@ export default function AdminProductList({ category, onEdit }) {
 
   const uniqueBrands = [...new Set(products.map(p => p.brand).filter(Boolean))];
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const currentProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="admin-product-list">
       <div className="admin-list-controls">
@@ -99,6 +109,7 @@ export default function AdminProductList({ category, onEdit }) {
           <p>No se encontraron resultados para tu búsqueda.</p>
         </div>
       ) : (
+      <>
       <table className="admin-table">
         <thead>
           <tr>
@@ -110,7 +121,7 @@ export default function AdminProductList({ category, onEdit }) {
           </tr>
         </thead>
         <tbody>
-          {products.map(product => (
+          {currentProducts.map(product => (
             <tr key={product.id}>
               <td>
                 {product.image_urls && product.image_urls.length > 0 ? (
@@ -139,6 +150,29 @@ export default function AdminProductList({ category, onEdit }) {
           ))}
         </tbody>
       </table>
+      
+      {totalPages > 1 && (
+        <div className="admin-pagination" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+          <button 
+            disabled={currentPage === 1} 
+            onClick={() => setCurrentPage(prev => prev - 1)}
+            style={{ padding: '8px 12px', background: '#2a2a2a', border: '1px solid #444', color: '#fff', borderRadius: '4px', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', opacity: currentPage === 1 ? 0.5 : 1 }}
+          >
+            Anterior
+          </button>
+          <span style={{ display: 'flex', alignItems: 'center', color: '#888' }}>
+            Página {currentPage} de {totalPages}
+          </span>
+          <button 
+            disabled={currentPage === totalPages} 
+            onClick={() => setCurrentPage(prev => prev + 1)}
+            style={{ padding: '8px 12px', background: '#2a2a2a', border: '1px solid #444', color: '#fff', borderRadius: '4px', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', opacity: currentPage === totalPages ? 0.5 : 1 }}
+          >
+            Siguiente
+          </button>
+        </div>
+      )}
+      </>
       )}
     </div>
   );

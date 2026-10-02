@@ -359,10 +359,10 @@
 
 /* Form Styles */
 .admin-product-form {
-  background: #1a1a1a;
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid #333;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 .form-row {
   display: flex;
@@ -382,11 +382,14 @@
   font-size: 1rem;
 }
 .category-specific {
-  background: #222;
-  padding: 20px;
-  border-radius: 8px;
+  background: transparent;
+  padding: 20px 0;
+  margin-top: 20px;
   margin-bottom: 20px;
-  border-left: 4px solid #d93225;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  border-left: none;
+  border-radius: 0;
 }
 .category-specific h4 {
   margin-top: 0;
