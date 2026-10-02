@@ -53,7 +53,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
 
   const handleDescriptionChange = (e) => {
     const value = e.target.value;
-    if (value.length <= 500) {
+    if (value.length <= 3000) {
       setFormData({ ...formData, description: value });
       // Auto-grow logic
       e.target.style.height = 'auto';
@@ -209,8 +209,8 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       <div className="admin-form-group">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <label>Descripción</label>
-          <small style={{ color: formData.description.length >= 500 ? '#ff6b6b' : '#888', fontSize: '0.8rem' }}>
-            {formData.description.length}/500
+          <small style={{ color: formData.description.length >= 3000 ? '#ff6b6b' : '#888', fontSize: '0.8rem' }}>
+            {formData.description.length}/3000
           </small>
         </div>
         <textarea 
@@ -219,7 +219,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
           rows="3" 
           value={formData.description} 
           onChange={handleDescriptionChange}
-          maxLength={500}
+          maxLength={3000}
           style={{ overflow: 'hidden', resize: 'none' }}
         ></textarea>
       </div>
