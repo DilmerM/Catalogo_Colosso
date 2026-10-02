@@ -28,7 +28,6 @@ export default function AdminLogin() {
     <div className="admin-login-container">
       <div className="admin-login-card">
         <div className="admin-logo">
-          <img src="/legionarius-store.png" alt="Logo" style={{ width: '80px', filter: 'invert(1)' }} />
           <h2>Panel de Administración</h2>
         </div>
         
@@ -57,7 +56,7 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required 
-                style={{ paddingRight: '40px' }}
+                style={{ width: '100%', boxSizing: 'border-box', paddingRight: '40px' }}
               />
               <button
                 type="button"

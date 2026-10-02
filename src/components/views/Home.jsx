@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
@@ -11,6 +12,16 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
   };
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!heroProduct || !heroProduct.images || heroProduct.images.length < 3) return;
+    const interval = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % 3);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [heroProduct]);
 
   return (
     <>
@@ -44,22 +55,24 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
         >
           <div className="hero-showcase-top">
             <span>SELECCIÓN LEGIONARIUS</span>
-            <span>01 / 03</span>
+            <span>0{activeIndex + 1} / 03</span>
           </div>
           <div 
-            className="hero-image-wrap multi-hover-art" 
+            className="hero-image-wrap" 
             onClick={() => heroProduct && openProduct(heroProduct)}
             style={{ cursor: heroProduct ? 'pointer' : 'default', position: 'relative' }}
           >
             {heroProduct ? (
               heroProduct.images && heroProduct.images.length >= 3 ? (
                 <>
-                  <img src={heroProduct.images[0]} className="hero-image h-img h-img-1" alt={heroProduct.name} />
-                  <img src={heroProduct.images[1]} className="hero-image h-img h-img-2" alt={heroProduct.name} />
-                  <img src={heroProduct.images[2]} className="hero-image h-img h-img-3" alt={heroProduct.name} />
-                  <div className="h-trigger h-trig-1"></div>
-                  <div className="h-trigger h-trig-2"></div>
-                  <div className="h-trigger h-trig-3"></div>
+                  <img src={heroProduct.images[0]} style={{ opacity: activeIndex === 0 ? 1 : 0, transition: 'opacity 0.6s ease', position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} className="hero-image" alt={heroProduct.name} />
+                  <img src={heroProduct.images[1]} style={{ opacity: activeIndex === 1 ? 1 : 0, transition: 'opacity 0.6s ease', position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} className="hero-image" alt={heroProduct.name} />
+                  <img src={heroProduct.images[2]} style={{ opacity: activeIndex === 2 ? 1 : 0, transition: 'opacity 0.6s ease', position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }} className="hero-image" alt={heroProduct.name} />
+                  
+                  {/* Keep hover zones so user can pause/override the slider manually */}
+                  <div className="h-trigger h-trig-1" onMouseEnter={() => setActiveIndex(0)}></div>
+                  <div className="h-trigger h-trig-2" onMouseEnter={() => setActiveIndex(1)}></div>
+                  <div className="h-trigger h-trig-3" onMouseEnter={() => setActiveIndex(2)}></div>
                 </>
               ) : (
                 <img src={heroProduct.image} className="hero-image h-img h-img-1" alt={heroProduct.name} />
