@@ -81,8 +81,6 @@ export default async function handler(req, res) {
     const allItems = [...(ropa || []), ...(suplementos || []), ...(maquinas || [])];
     const allUrls = allItems.flatMap(item => item.image_urls || []);
     
-    const bucketName = process.env.R2_BUCKET_NAME || process.env.VITE_R2_BUCKET_NAME || 'catalogo';
-    
     const copyPromises = allUrls.filter(Boolean).map(url => {
       try {
         const urlObj = new URL(url);
