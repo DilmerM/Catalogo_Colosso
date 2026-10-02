@@ -143,7 +143,7 @@ function App() {
     fetchProducts();
   }, []);
 
-  const visibleProducts = filter === 'TODO' ? products : products.filter(p => p.kind === filter);
+  const visibleProducts = (filter === 'TODO' || filter === 'ALL_PRODUCTS') ? products : products.filter(p => p.kind === filter);
   
   const isMainView = !selectedProduct && !showMachines;
   const heroProduct = products.find(p => p.name === 'OVERSIZE SNAKE') || products[0];
