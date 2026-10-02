@@ -291,21 +291,21 @@ function App() {
       <section className="map-section" id="ubicacion" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'clamp(40px, 8vw, 80px)', alignItems: 'center', paddingBottom: '80px', position: 'relative' }}>
         <GeometricShapes section="map" />
         <div>
-          <p className="eyebrow">VISÍTANOS <i></i> GUADALAJARA, JALISCO</p>
+          <p className="eyebrow">VISÍTANOS <i></i> ZAPOPAN, JALISCO</p>
           <h2 style={{ marginBottom: '42px' }}>ENCUENTRA TU<br/><span>PRÓXIMO NIVEL.</span></h2>
           <div style={{ display: 'grid', gap: '32px' }}>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
               <iconify-icon icon="mdi:map-marker-outline" style={{ color: 'var(--red)', fontSize: '32px' }}></iconify-icon>
               <div>
                 <strong style={{ display: 'block', fontSize: '18px', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--ink)' }}>DIRECCIÓN</strong>
-                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Av. Providencia 2500<br/>Col. Providencia, 44630<br/>Guadalajara, Jalisco</p>
+                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Av. Juan Gil Preciado 315<br/>La Periquera, 45143<br/>Zapopan, Jal., México</p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
               <iconify-icon icon="mdi:clock-outline" style={{ color: 'var(--red)', fontSize: '32px' }}></iconify-icon>
               <div>
                 <strong style={{ display: 'block', fontSize: '18px', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--ink)' }}>HORARIO</strong>
-                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Lunes a Viernes: 5:30 AM - 11:00 PM<br/>Sábados: 7:00 AM - 9:00 PM</p>
+                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Lunes a Viernes: 6:00 AM - 11:00 PM<br/>Sábado y Domingo: 8:00 AM - 4:00 PM</p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>

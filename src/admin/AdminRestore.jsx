@@ -116,45 +116,47 @@ export default function AdminRestore() {
           <p>No hay respaldos disponibles</p>
         </div>
       ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Fecha y Hora</th>
-              <th>Descripción</th>
-              <th>Tamaño</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {backups.map(backup => (
-              <tr key={backup.id}>
-                <td>{new Date(backup.created_at).toLocaleString()}</td>
-                <td>{backup.description}</td>
-                <td>{backup.size_bytes ? `${(backup.size_bytes / 1024).toFixed(2)} KB` : 'Desconocido'}</td>
-                <td style={{ display: 'flex', gap: '8px' }}>
-                  <button 
-                    onClick={() => handleRestore(backup)} 
-                    className="admin-primary-btn"
-                    style={{ background: '#d93225', padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
-                    disabled={actionLoading}
-                    title="Restaurar"
-                  >
-                    <iconify-icon icon="mdi:backup-restore"></iconify-icon> Restaurar
-                  </button>
-                  <button 
-                    onClick={() => handleDeleteBackup(backup)} 
-                    className="admin-secondary-btn"
-                    style={{ padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
-                    disabled={actionLoading}
-                    title="Eliminar"
-                  >
-                    <iconify-icon icon="mdi:delete-outline"></iconify-icon>
-                  </button>
-                </td>
+        <div style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
+          <table className="admin-table" style={{ minWidth: '600px' }}>
+            <thead>
+              <tr>
+                <th>Fecha y Hora</th>
+                <th>Descripción</th>
+                <th>Tamaño</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {backups.map(backup => (
+                <tr key={backup.id}>
+                  <td>{new Date(backup.created_at).toLocaleString()}</td>
+                  <td>{backup.description}</td>
+                  <td>{backup.size_bytes ? `${(backup.size_bytes / 1024).toFixed(2)} KB` : 'Desconocido'}</td>
+                  <td style={{ display: 'flex', gap: '8px' }}>
+                    <button 
+                      onClick={() => handleRestore(backup)} 
+                      className="admin-primary-btn"
+                      style={{ background: '#d93225', padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
+                      disabled={actionLoading}
+                      title="Restaurar"
+                    >
+                      <iconify-icon icon="mdi:backup-restore"></iconify-icon> Restaurar
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteBackup(backup)} 
+                      className="admin-secondary-btn"
+                      style={{ padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
+                      disabled={actionLoading}
+                      title="Eliminar"
+                    >
+                      <iconify-icon icon="mdi:delete-outline"></iconify-icon>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
