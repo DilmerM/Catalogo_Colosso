@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
+import MobileAutoSlide from '../MobileAutoSlide.jsx';
 
 export default function Shop({ filter, setFilter, visibleProducts, openProduct }) {
   const [visibleCount, setVisibleCount] = useState(30);
@@ -105,6 +106,7 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
               ) : (
                 <img src={p.image} className="h-img h-img-1" alt={p.name} />
               )}
+              <MobileAutoSlide images={p.images} name={p.name} />
             </div>
             <div className="product-info">
               <div>
