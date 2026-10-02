@@ -62,6 +62,8 @@ function App() {
   const openProduct = (p) => {
     if (!selectedProduct) {
       setSavedScroll(window.scrollY);
+      // Push state to browser history when opening the first product
+      window.history.pushState({ modal: 'product' }, '', '#producto');
     }
     setSelectedProduct(p);
     setActiveImage(0);
@@ -75,9 +77,24 @@ function App() {
     }
   }, [needsScrollRestore, savedScroll]);
 
+  // Handle hardware back button
+  useEffect(() => {
+    const handlePopState = () => {
+      if (selectedProduct) {
+        setSelectedProduct(null);
+        setNeedsScrollRestore(true);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [selectedProduct]);
+
   const closeProduct = () => {
-    setSelectedProduct(null);
-    setNeedsScrollRestore(true);
+    if (selectedProduct) {
+      // Instead of changing state directly, we trigger a history back,
+      // which will fire the popstate listener and close the product.
+      window.history.back();
+    }
   };
   
   // Smooth scroll global — intercepta todos los hash-links de la página

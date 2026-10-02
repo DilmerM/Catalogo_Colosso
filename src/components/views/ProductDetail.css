@@ -275,7 +275,7 @@
 /* ── Mobile Responsive ───────────────────── */
 @media (max-width: 800px) {
   .pd-view {
-    padding: 30px 5%;
+    padding: 95px 5% 40px;
   }
   .pd-grid {
     grid-template-columns: 1fr;
