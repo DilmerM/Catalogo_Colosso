@@ -97,7 +97,7 @@ function App() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data, error } = await supabase.from('ropa').select('*').order('created_at', { ascending: false });
+      const { data, error } = await supabase.from('ropa').select('*').is('is_active', true).order('created_at', { ascending: false });
       if (!error && data) {
         // Map Supabase schema to frontend schema
         const mappedProducts = data.map(p => {

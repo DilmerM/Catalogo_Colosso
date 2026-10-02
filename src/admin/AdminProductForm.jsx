@@ -11,6 +11,8 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
     dimensions: '', weight_capacity: '', features: '' // Máquinas
   });
   const [imageFile, setImageFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [existingImages, setExistingImages] = useState([]);
 
   useEffect(() => {
     if (productToEdit) {
@@ -32,6 +34,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
         weight_capacity: productToEdit.weight_capacity || '',
         features: Array.isArray(productToEdit.features) ? productToEdit.features.join(', ') : ''
       });
+      setExistingImages(productToEdit.image_urls || []);
     }
   }, [productToEdit]);
 
@@ -53,6 +56,38 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       // Auto-grow logic
       e.target.style.height = 'auto';
       e.target.style.height = `${e.target.scrollHeight}px`;
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const removeExistingImage = async (urlToRemove) => {
+    if (!window.confirm('¿Eliminar esta imagen de forma permanente?')) return;
+    
+    // Optimistic UI update
+    const updatedImages = existingImages.filter(url => url !== urlToRemove);
+    setExistingImages(updatedImages);
+
+    // Delete from Supabase instantly
+    if (productToEdit) {
+      await supabase.from(category).update({ image_urls: updatedImages }).eq('id', productToEdit.id);
+    }
+
+    // Delete from R2
+    try {
+      await fetch('/api/delete-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageUrls: [urlToRemove] })
+      });
+    } catch (err) {
+      console.error('Error deleting image from R2:', err);
     }
   };
 
@@ -90,22 +125,12 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       let imageUrl = null;
       if (imageFile) {
         imageUrl = await uploadImageToR2(imageFile);
-        
-        // Delete old image if editing and uploading a new one
-        if (productToEdit && productToEdit.image_urls && productToEdit.image_urls.length > 0) {
-          try {
-            await fetch('/api/delete-image', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ imageUrls: productToEdit.image_urls })
-            });
-          } catch (err) {
-            console.error('Error deleting old image:', err);
-          }
-        }
-      } else if (productToEdit && productToEdit.image_urls) {
-        // Keep existing image if no new one is uploaded
-        imageUrl = productToEdit.image_urls[0];
+      }
+
+      // Combine existing images and new image (if any)
+      const finalImageUrls = [...existingImages];
+      if (imageUrl) {
+        finalImageUrls.push(imageUrl);
       }
 
       // Prepare payload based on category
@@ -116,7 +141,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
         description: formData.description,
         price: parseFloat(formData.price),
         discount_price: formData.discount_price ? parseFloat(formData.discount_price) : null,
-        image_urls: imageUrl ? [imageUrl] : []
+        image_urls: finalImageUrls
       };
 
       if (category === 'ropa') {
@@ -278,8 +303,36 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       )}
 
       <div className="admin-form-group">
-        <label>Imagen Principal del Producto</label>
-        <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
+        <label>Imágenes del Producto</label>
+        <div className="admin-image-upload-container">
+          
+          <div className="admin-image-previews">
+            {existingImages.map((url, index) => (
+              <div key={index} className="admin-preview-item">
+                <img src={url} alt={`Preview ${index}`} />
+                <button type="button" className="admin-preview-delete" onClick={() => removeExistingImage(url)} title="Eliminar imagen">
+                  <iconify-icon icon="mdi:close" style={{ fontSize: '16px' }}></iconify-icon>
+                </button>
+              </div>
+            ))}
+            {previewUrl && (
+              <div className="admin-preview-item" style={{ border: '2px dashed #4a90e2' }}>
+                <img src={previewUrl} alt="New Preview" />
+                <button type="button" className="admin-preview-delete" onClick={() => { setImageFile(null); setPreviewUrl(null); }} title="Cancelar">
+                  <iconify-icon icon="mdi:close" style={{ fontSize: '16px' }}></iconify-icon>
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="admin-file-input-wrapper">
+            <label className="admin-file-btn">
+              <iconify-icon icon="mdi:cloud-upload-outline" style={{ fontSize: '24px' }}></iconify-icon>
+              <span>{imageFile ? 'Cambiar archivo seleccionado' : 'Seleccionar archivo...'}</span>
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+            </label>
+          </div>
+        </div>
       </div>
 
       <div className="admin-form-actions">

@@ -50,6 +50,25 @@ export default function AdminProductList({ category, onEdit }) {
     }
   };
 
+  const toggleProductActive = async (product) => {
+    const newActiveState = product.is_active === false ? true : false;
+    
+    // Update local state instantly for snappy UI
+    setProducts(products.map(p => 
+      p.id === product.id ? { ...p, is_active: newActiveState } : p
+    ));
+
+    // Update in Supabase
+    const { error } = await supabase.from(category).update({ is_active: newActiveState }).eq('id', product.id);
+    if (error) {
+      alert('Error al actualizar estado: ' + error.message);
+      // Revert local state on error
+      setProducts(products.map(p => 
+        p.id === product.id ? { ...p, is_active: !newActiveState } : p
+      ));
+    }
+  };
+
   if (loading) {
     return <div style={{ padding: '20px', color: '#888' }}>Cargando productos...</div>;
   }
@@ -116,7 +135,7 @@ export default function AdminProductList({ category, onEdit }) {
             <th>Imagen</th>
             <th>Nombre</th>
             <th>Precio</th>
-            <th>Fecha</th>
+            <th>Activo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -135,7 +154,16 @@ export default function AdminProductList({ category, onEdit }) {
                 <br /><small>{product.brand}</small>
               </td>
               <td>${product.price}</td>
-              <td>{new Date(product.created_at).toLocaleDateString()}</td>
+              <td>
+                <label className="admin-toggle-switch" title={product.is_active !== false ? "Desactivar producto" : "Activar producto"}>
+                  <input 
+                    type="checkbox" 
+                    checked={product.is_active !== false} 
+                    onChange={() => toggleProductActive(product)} 
+                  />
+                  <span className="admin-toggle-slider"></span>
+                </label>
+              </td>
               <td>
                 <div className="admin-actions-group">
                   <button onClick={() => onEdit(product)} className="admin-icon-btn admin-edit-btn" title="Editar">
