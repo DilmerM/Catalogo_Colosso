@@ -51,6 +51,8 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
         <button onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small></button>
         <button onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small></button>
         <button onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small></button>
+        <button onClick={() => setFilter('TODO')}><span>05</span><strong>TODOS LOS PRODUCTOS</strong><small>Catálogo completo</small></button>
+        <button onClick={() => setFilter('ROPA')}><span>06</span><strong>PANTALONES</strong><small>Pants · Ropa deportiva</small></button>
       </motion.div>
       
       <motion.div 
