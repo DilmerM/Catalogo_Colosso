@@ -478,7 +478,7 @@ footer .brand {
     position: fixed;
     top: 12px;
     right: 16px;
-    z-index: 50;
+    z-index: 10000;
   }
 
   .mobile-menu summary {

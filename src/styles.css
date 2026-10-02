@@ -162,4 +162,8 @@
     left: auto;
     right: -16px;
   }
+  /* Spacing between EXPLORAR TIENDA and SELECCIÓN LEGIONARIUS */
+  .hero-showcase {
+    margin-top: 30px;
+  }
 }
