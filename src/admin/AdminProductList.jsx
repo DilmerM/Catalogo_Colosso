@@ -10,13 +10,28 @@ export default function AdminProductList({ category, onEdit }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  // Restore page when category changes or component mounts
+  useEffect(() => {
+    const savedPage = localStorage.getItem(`adminPage_${category}`);
+    if (savedPage) {
+      setCurrentPage(parseInt(savedPage, 10));
+    } else {
+      setCurrentPage(1);
+    }
+  }, [category]);
+
+  // Save page to local storage when it changes
+  useEffect(() => {
+    localStorage.setItem(`adminPage_${category}`, currentPage);
+  }, [currentPage, category]);
+
   useEffect(() => {
     fetchProducts();
   }, [category]);
 
   const fetchProducts = async () => {
     setLoading(true);
-    setCurrentPage(1);
+    // Removed setCurrentPage(1) here to allow persistence
     const { data, error } = await supabase.from(category).select('*').order('created_at', { ascending: false });
     if (error) {
       console.error('Error fetching products:', error);
@@ -90,6 +105,8 @@ export default function AdminProductList({ category, onEdit }) {
     return matchesSearch && matchesBrand;
   });
 
+  // Removed useEffect for search/filter to prevent on-mount reset bug
+
   const uniqueBrands = [...new Set(products.map(p => p.brand).filter(Boolean))];
 
   // Pagination logic
@@ -108,13 +125,19 @@ export default function AdminProductList({ category, onEdit }) {
             type="text" 
             placeholder="Buscar por nombre o marca..." 
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
           />
         </div>
         {uniqueBrands.length > 0 && (
           <div className="admin-filter-box">
             <iconify-icon icon="mdi:filter-variant"></iconify-icon>
-            <select value={filterBrand} onChange={(e) => setFilterBrand(e.target.value)}>
+            <select value={filterBrand} onChange={(e) => {
+              setFilterBrand(e.target.value);
+              setCurrentPage(1);
+            }}>
               <option value="">Todas las marcas</option>
               {uniqueBrands.map(brand => (
                 <option key={brand} value={brand}>{brand}</option>

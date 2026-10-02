@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import AdminProductList from './AdminProductList';
 import AdminProductForm from './AdminProductForm';
@@ -6,11 +6,15 @@ import AdminRestore from './AdminRestore';
 import AdminSettings from './AdminSettings';
 
 export default function AdminDashboard({ session }) {
-  const [activeTab, setActiveTab] = useState('ropa');
+  const [activeTab, setActiveTab] = useState(() => localStorage.getItem('adminActiveTab') || 'ropa');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('adminActiveTab', activeTab);
+  }, [activeTab]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
