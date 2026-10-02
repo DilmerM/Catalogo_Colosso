@@ -146,7 +146,7 @@
     max-width: none !important;
     width: auto !important;
     flex: 1 1 0 !important;
-    margin: 0 10px !important;
+    margin: 0 65px 0 10px !important;
     order: unset;
     flex-basis: auto !important;
   }
