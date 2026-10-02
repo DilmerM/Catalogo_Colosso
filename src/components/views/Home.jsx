@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
 export default function Home({ heroProduct, openProduct, setFilter }) {
-  if (!heroProduct) return null;
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -49,25 +48,29 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
           </div>
           <div 
             className="hero-image-wrap multi-hover-art" 
-            onClick={() => openProduct(heroProduct)}
-            style={{ cursor: 'pointer', position: 'relative' }}
+            onClick={() => heroProduct && openProduct(heroProduct)}
+            style={{ cursor: heroProduct ? 'pointer' : 'default', position: 'relative' }}
           >
-            {heroProduct.images && heroProduct.images.length >= 3 ? (
-              <>
-                <img src={heroProduct.images[0]} className="hero-image h-img h-img-1" alt={heroProduct.name} />
-                <img src={heroProduct.images[1]} className="hero-image h-img h-img-2" alt={heroProduct.name} />
-                <img src={heroProduct.images[2]} className="hero-image h-img h-img-3" alt={heroProduct.name} />
-                <div className="h-trigger h-trig-1"></div>
-                <div className="h-trigger h-trig-2"></div>
-                <div className="h-trigger h-trig-3"></div>
-              </>
+            {heroProduct ? (
+              heroProduct.images && heroProduct.images.length >= 3 ? (
+                <>
+                  <img src={heroProduct.images[0]} className="hero-image h-img h-img-1" alt={heroProduct.name} />
+                  <img src={heroProduct.images[1]} className="hero-image h-img h-img-2" alt={heroProduct.name} />
+                  <img src={heroProduct.images[2]} className="hero-image h-img h-img-3" alt={heroProduct.name} />
+                  <div className="h-trigger h-trig-1"></div>
+                  <div className="h-trigger h-trig-2"></div>
+                  <div className="h-trigger h-trig-3"></div>
+                </>
+              ) : (
+                <img src={heroProduct.image} className="hero-image h-img h-img-1" alt={heroProduct.name} />
+              )
             ) : (
-              <img src={heroProduct.image} className="hero-image h-img h-img-1" alt={heroProduct.name} />
+              <div className="hero-image h-img h-img-1" style={{ background: '#222' }}></div>
             )}
             <div className="hero-product-label" style={{ zIndex: 10 }}>
-              <small>{heroProduct.brand} · {heroProduct.sub}</small>
-              <strong>{heroProduct.name}</strong>
-              <span>{heroProduct.price} ↗</span>
+              <small>{heroProduct ? `${heroProduct.brand} · ${heroProduct.sub}` : 'Cargando...'}</small>
+              <strong>{heroProduct ? heroProduct.name : '...'}</strong>
+              <span>{heroProduct ? heroProduct.price : ''} {heroProduct ? '↗' : ''}</span>
             </div>
             <div className="hero-badge" style={{ zIndex: 10 }}>ENTRENA<br/><b>FUERTE</b></div>
           </div>
