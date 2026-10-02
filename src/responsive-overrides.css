@@ -948,25 +948,28 @@ footer .brand {
   height: 18px;
 }
 
-/* Gallery-style image inside feature cards */
-.feature-card-img {
+/* Wrapper for gallery image so it can scale without bleeding out of rounded corners */
+.feature-card-bg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
-  opacity: 1;
-  transition: transform .3s ease;
+  inset: 1px;
+  border-radius: 15px;
+  overflow: hidden;
   z-index: 0;
 }
 
-/* Gradient overlay so the text stays readable over solid images */
-.hero-feature-card::after {
+/* Gallery-style image inside feature cards */
+.feature-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+/* Gradient overlay moved inside the wrapper to stay clipped cleanly */
+.feature-card-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 16px;
   background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 100%);
   z-index: 1;
   pointer-events: none;
@@ -1021,8 +1024,8 @@ footer .brand {
     border-radius: 14px;
   }
 
-  .feature-card-img {
-    border-radius: 14px;
+  .feature-card-bg {
+    border-radius: 13px;
   }
 
   .hero-feature-icon {

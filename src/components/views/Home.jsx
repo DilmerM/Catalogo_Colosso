@@ -92,31 +92,31 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
       >
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('ROPA')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:tshirt-crew-outline"></iconify-icon></span>
-          <img src="/ropa_category.jpg" alt="Ropa" className="feature-card-img" />
+          <div className="feature-card-bg"><img src="/ropa_category.jpg" alt="Ropa" className="feature-card-img" /></div>
           <strong>ROPA</strong><small>Legionarius</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('SUPLEMENTOS')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:shaker-outline"></iconify-icon></span>
-          <img src="/suplementos_category.jpg" alt="Suplementos" className="feature-card-img" />
+          <div className="feature-card-bg"><img src="/suplementos_category.jpg" alt="Suplementos" className="feature-card-img" /></div>
           <strong>SUPLEMENTOS</strong><small>Nutrición deportiva</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:dumbbell"></iconify-icon></span>
-          <img src="/maquinas_category.jpg" alt="Máquinas" className="feature-card-img" />
+          <div className="feature-card-bg"><img src="/maquinas_category.jpg" alt="Máquinas" className="feature-card-img" /></div>
           <strong>MÁQUINAS</strong><small>Fuerza y cardio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:floor-plan"></iconify-icon></span>
-          <img src="/asesoria_category.jpg" alt="Asesoría Gym" className="feature-card-img" />
+          <div className="feature-card-bg"><img src="/asesoria_category.jpg" alt="Asesoría Gym" className="feature-card-img" /></div>
           <strong>ASESORÍA GYM</strong><small>Diseña tu espacio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#ubicacion">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:truck-fast-outline"></iconify-icon></span>
-          <img src="/envios_category.jpg" alt="Envíos" className="feature-card-img" />
+          <div className="feature-card-bg"><img src="/envios_category.jpg" alt="Envíos" className="feature-card-img" /></div>
           <strong>ENVÍOS</strong><small>A todo México</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
