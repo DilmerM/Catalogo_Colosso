@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
 export default function Shop({ filter, setFilter, visibleProducts, openProduct }) {
   const [visibleCount, setVisibleCount] = useState(30);
+  const cardsRef = useRef(null);
 
   // Reset pagination when category changes
   useEffect(() => {
@@ -13,6 +14,24 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
       setVisibleCount(30);
     }
   }, [filter]);
+
+  // CSS-based scroll animation — uses root:null (viewport) so overflow on ancestors doesn't matter
+  useEffect(() => {
+    const container = cardsRef.current;
+    if (!container) return;
+    const buttons = container.querySelectorAll('.cat-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('cat-card-visible');
+        } else {
+          entry.target.classList.remove('cat-card-visible');
+        }
+      });
+    }, { root: null, threshold: 0.1 });
+    buttons.forEach(btn => observer.observe(btn));
+    return () => observer.disconnect();
+  }, []);
 
   const displayedProducts = visibleProducts.slice(0, visibleCount);
   const hasMore = visibleProducts.length > visibleCount;
@@ -50,37 +69,13 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
         </motion.div>
       </div>
       
-      <div className="category-cards">
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: -50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('PLAYERAS')}><span>01</span><strong>PLAYERAS</strong><small>Oversize · Sudaderas</small>
-        </motion.button>
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: 50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small>
-        </motion.button>
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: -50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small>
-        </motion.button>
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: 50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small>
-        </motion.button>
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: -50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('ALL_PRODUCTS')}><span>05</span><strong>TODOS LOS PRODUCTOS</strong><small>Catálogo completo</small>
-        </motion.button>
-        <motion.button 
-          initial="offscreen" whileInView="onscreen" viewport={{ once: false, amount: 0.1 }} 
-          variants={{ offscreen: { opacity: 0, x: 50 }, onscreen: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
-          onClick={() => setFilter('ROPA')}><span>06</span><strong>PANTALONES</strong><small>Pants · Ropa deportiva</small>
-        </motion.button>
+      <div className="category-cards" ref={cardsRef}>
+        <button className="cat-card cat-card-left" onClick={() => setFilter('PLAYERAS')}><span>01</span><strong>PLAYERAS</strong><small>Oversize · Sudaderas</small></button>
+        <button className="cat-card cat-card-right" onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small></button>
+        <button className="cat-card cat-card-left" onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small></button>
+        <button className="cat-card cat-card-right" onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small></button>
+        <button className="cat-card cat-card-left" onClick={() => setFilter('ALL_PRODUCTS')}><span>05</span><strong>TODOS LOS PRODUCTOS</strong><small>Catálogo completo</small></button>
+        <button className="cat-card cat-card-right" onClick={() => setFilter('ROPA')}><span>06</span><strong>PANTALONES</strong><small>Pants · Ropa deportiva</small></button>
       </div>
       
       <motion.div 

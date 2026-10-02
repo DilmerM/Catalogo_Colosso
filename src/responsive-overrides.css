@@ -254,6 +254,23 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 34px;
+  overflow: hidden;
+}
+
+/* Category card scroll animation — CSS-only, no Framer Motion dependency */
+.cat-card {
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.cat-card-left {
+  transform: translateX(-40px);
+}
+.cat-card-right {
+  transform: translateX(40px);
+}
+.cat-card-visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .category-cards button {
@@ -436,8 +453,7 @@ footer .brand {
 @media (max-width: 800px) {
   /* overflow:hidden en .app impide position:fixed — se corrige en mobile */
   .app {
-    overflow-x: clip !important;
-    overflow-y: visible !important;
+    overflow: visible !important;
   }
 
   /* ── Navbar fixed en mobile ───────────────────── */
