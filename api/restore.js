@@ -78,26 +78,25 @@ export default async function handler(req, res) {
     
     const bucketName = process.env.R2_BUCKET_NAME || process.env.VITE_R2_BUCKET_NAME || 'catalogo';
     
-    for (const url of allUrls) {
-      if (!url) continue;
+    const copyPromises = allUrls.filter(Boolean).map(url => {
       try {
         const urlObj = new URL(url);
         const key = decodeURIComponent(urlObj.pathname.substring(1));
         
-        // Attempt to copy from trash/key to key
         const copyCmd = new CopyObjectCommand({
           Bucket: bucketName,
           CopySource: `${bucketName}/trash/${key}`,
           Key: key
         });
         
-        await S3.send(copyCmd).catch(() => {
-          // Ignore if the file wasn't in trash (it might already be in the root)
-        });
+        return S3.send(copyCmd);
       } catch (err) {
-        console.error('Failed to parse or restore image URL:', url, err.message);
+        return Promise.resolve(); // Ignore invalid URLs
       }
-    }
+    });
+
+    // Run all copies in parallel to avoid Vercel 10s timeout
+    await Promise.allSettled(copyPromises);
 
     res.status(200).json({ success: true, message: 'Database restored successfully' });
   } catch (error) {
