@@ -103,8 +103,13 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
                   <div className="h-trigger h-trig-2"></div>
                   <div className="h-trigger h-trig-3"></div>
                 </>
+              ) : p.images && p.images.length === 2 ? (
+                <>
+                  <img src={p.images[0]} className="h-img hover-flip-1" alt={p.name} />
+                  <img src={p.images[1]} className="h-img hover-flip-2" alt={p.name} />
+                </>
               ) : (
-                <img src={p.image} className="h-img h-img-1" alt={p.name} />
+                <img src={p.images ? p.images[0] : p.image} className="h-img h-img-1" alt={p.name} />
               )}
               <MobileAutoSlide images={p.images} name={p.name} />
             </div>

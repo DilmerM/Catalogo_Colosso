@@ -1623,6 +1623,10 @@ button,
 .multi-hover-art:has(.h-trig-3:hover) .h-img-1 { opacity: 0; }
 .multi-hover-art:has(.h-trig-3:hover) .h-img-3 { opacity: 1; }
 
+/* Fallback for 2 images */
+.product-art:hover .hover-flip-1 { opacity: 0; }
+.product-art:hover .hover-flip-2 { opacity: 1; }
+
 /* ── Mobile Auto-Slide (product image carousel) ── */
 .mobile-auto-slide {
   display: none;
