@@ -57,6 +57,7 @@ function App() {
   const [activeImage, setActiveImage] = useState(0);
   const [savedScroll, setSavedScroll] = useState(0);
   const [needsScrollRestore, setNeedsScrollRestore] = useState(false);
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
   const openProduct = (p) => {
     if (!selectedProduct) {
@@ -82,7 +83,16 @@ function App() {
   // Smooth scroll global — intercepta todos los hash-links de la página
   useEffect(() => {
     document.addEventListener('click', handleNavClick);
-    return () => document.removeEventListener('click', handleNavClick);
+    
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      document.removeEventListener('click', handleNavClick);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -296,6 +306,15 @@ function App() {
       <Footer />
       <MobileMenu closeProduct={closeProduct} setShowMachines={setShowMachines} />
       <div style={{ position: 'fixed', bottom: '18px', right: '18px', display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 30 }}>
+        {showTopBtn && (
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="scroll-top-float" 
+            aria-label="Volver arriba"
+          >
+            <iconify-icon icon="mdi:chevron-up" style={{ fontSize: '24px' }}></iconify-icon>
+          </button>
+        )}
         <a className="instagram-float" href="https://www.instagram.com/colosso__genesis/?hl=es" target="_blank" rel="noreferrer" aria-label="Ir a Instagram"><iconify-icon icon="mdi:instagram" style={{ fontSize: '20px' }}></iconify-icon><span>Instagram</span></a>
         <a className="whatsapp-float" href="https://wa.me/523781498234" target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><iconify-icon icon="mdi:whatsapp" style={{ fontSize: '20px' }}></iconify-icon><span>WhatsApp</span></a>
       </div>

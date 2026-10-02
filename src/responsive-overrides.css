@@ -254,6 +254,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 34px;
+  overflow-x: hidden;
 }
 
 .category-cards button {
@@ -368,7 +369,7 @@
 }
 
 
-.whatsapp-float, .instagram-float {
+.whatsapp-float, .instagram-float, .scroll-top-float {
   display: none;
   align-items: center;
   gap: 8px;
@@ -388,7 +389,17 @@
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
-.whatsapp-float span, .instagram-float span {
+.scroll-top-float {
+  background: var(--ink);
+  color: var(--panel);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.whatsapp-float span, .instagram-float span, .scroll-top-float span {
   display: inline;
 }
 
@@ -617,7 +628,7 @@ footer .brand {
     transform: translateX(4px);
   }
 
-  .whatsapp-float, .instagram-float {
+  .whatsapp-float, .instagram-float, .scroll-top-float {
     display: inline-flex;
   }
 
