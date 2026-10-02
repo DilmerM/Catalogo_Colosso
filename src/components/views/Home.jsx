@@ -17,6 +17,13 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [collageConfig, setCollageConfig] = useState(null);
+  const [categoryImages, setCategoryImages] = useState({
+    ropa: '',
+    suplementos: '',
+    maquinas: '',
+    asesoria: '',
+    envios: ''
+  });
 
   useEffect(() => {
     // Read config for Collage on mount from Supabase
@@ -29,6 +36,16 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
       
       if (data && data.value) {
         setCollageConfig(data.value);
+      }
+
+      const { data: catData } = await supabase
+        .from('app_config')
+        .select('value')
+        .eq('key_name', 'category_images')
+        .maybeSingle();
+
+      if (catData && catData.value) {
+        setCategoryImages(prev => ({ ...prev, ...catData.value }));
       }
     }
     fetchConfig();
@@ -130,31 +147,31 @@ export default function Home({ heroProduct, openProduct, setFilter }) {
       >
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('ROPA')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:tshirt-crew-outline"></iconify-icon></span>
-          <div className="feature-card-bg"><img src="/ropa_category.jpg" alt="Ropa" className="feature-card-img" /></div>
+          <div className="feature-card-bg">{categoryImages.ropa && <img src={categoryImages.ropa} alt="Ropa" className="feature-card-img" />}</div>
           <strong>ROPA</strong><small>Legionarius</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#tienda" onClick={() => setFilter && setFilter('SUPLEMENTOS')}>
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:shaker-outline"></iconify-icon></span>
-          <div className="feature-card-bg"><img src="/suplementos_category.jpg" alt="Suplementos" className="feature-card-img" /></div>
+          <div className="feature-card-bg">{categoryImages.suplementos && <img src={categoryImages.suplementos} alt="Suplementos" className="feature-card-img" />}</div>
           <strong>SUPLEMENTOS</strong><small>Nutrición deportiva</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:dumbbell"></iconify-icon></span>
-          <div className="feature-card-bg"><img src="/maquinas_category.jpg" alt="Máquinas" className="feature-card-img" /></div>
+          <div className="feature-card-bg">{categoryImages.maquinas && <img src={categoryImages.maquinas} alt="Máquinas" className="feature-card-img" />}</div>
           <strong>MÁQUINAS</strong><small>Fuerza y cardio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#equipo-fuerza">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:floor-plan"></iconify-icon></span>
-          <div className="feature-card-bg"><img src="/asesoria_category.jpg" alt="Asesoría Gym" className="feature-card-img" /></div>
+          <div className="feature-card-bg">{categoryImages.asesoria && <img src={categoryImages.asesoria} alt="Asesoría Gym" className="feature-card-img" />}</div>
           <strong>ASESORÍA GYM</strong><small>Diseña tu espacio</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>
         <motion.a variants={fadeInUp} className="hero-feature-card" href="#ubicacion">
           <span className="hero-feature-icon" aria-hidden="true"><iconify-icon icon="mdi:truck-fast-outline"></iconify-icon></span>
-          <div className="feature-card-bg"><img src="/envios_category.jpg" alt="Envíos" className="feature-card-img" /></div>
+          <div className="feature-card-bg">{categoryImages.envios && <img src={categoryImages.envios} alt="Envíos" className="feature-card-img" />}</div>
           <strong>ENVÍOS</strong><small>A todo México</small>
           <b aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></b>
         </motion.a>

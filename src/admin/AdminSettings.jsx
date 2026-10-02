@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { modalService } from '../lib/modalService.js';
 import { toastService } from '../lib/toastService.js';
 import './AdminSettings.css';
+import './AdminCategorySettings.css';
 
 export default function AdminSettings() {
   const [isCollageEnabled, setIsCollageEnabled] = useState(true);
@@ -20,6 +21,18 @@ export default function AdminSettings() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+
+  // Category images state
+  const defaultCategoryImages = {
+    ropa: '',
+    suplementos: '',
+    maquinas: '',
+    asesoria: '',
+    envios: ''
+  };
+  const [categoryImages, setCategoryImages] = useState(defaultCategoryImages);
+  const [uploadingCategory, setUploadingCategory] = useState(null);
+  const categoryInputRef = useRef(null);
 
   const MAX_IMAGES = 20;
 
@@ -41,6 +54,16 @@ export default function AdminSettings() {
       .select('value')
       .eq('key_name', 'collage_settings')
       .maybeSingle();
+
+    const { data: catData } = await supabase
+      .from('app_config')
+      .select('value')
+      .eq('key_name', 'category_images')
+      .maybeSingle();
+
+    if (catData && catData.value) {
+      setCategoryImages({ ...defaultCategoryImages, ...catData.value });
+    }
 
     if (error) {
       console.error("Error loading config", error);
@@ -79,6 +102,20 @@ export default function AdminSettings() {
       await supabase.from('app_config').update({ value: valueObj }).eq('key_name', 'collage_settings');
     } else {
       await supabase.from('app_config').insert({ key_name: 'collage_settings', value: valueObj });
+    }
+  };
+
+  const saveCategoryImages = async (newCategories) => {
+    const { data: existing } = await supabase
+      .from('app_config')
+      .select('id')
+      .eq('key_name', 'category_images')
+      .maybeSingle();
+
+    if (existing) {
+      await supabase.from('app_config').update({ value: newCategories }).eq('key_name', 'category_images');
+    } else {
+      await supabase.from('app_config').insert({ key_name: 'category_images', value: newCategories });
     }
   };
 
@@ -139,6 +176,27 @@ export default function AdminSettings() {
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = ''; // Reset input
+    }
+  };
+
+  const handleCategoryFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !uploadingCategory) return;
+
+    setUploading(true);
+    try {
+      const publicUrl = await uploadImageToR2(file);
+      const newCats = { ...categoryImages, [uploadingCategory]: publicUrl };
+      setCategoryImages(newCats);
+      await saveCategoryImages(newCats);
+      toastService.success(`Imagen de ${uploadingCategory.toUpperCase()} guardada.`);
+    } catch (error) {
+      console.error(error);
+      toastService.error('Error al subir imagen de categoría: ' + error.message);
+    } finally {
+      setUploading(false);
+      setUploadingCategory(null);
+      if (categoryInputRef.current) categoryInputRef.current.value = '';
     }
   };
 
@@ -303,6 +361,44 @@ export default function AdminSettings() {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="settings-section">
+        <div className="settings-section-head">
+          <h3>Tarjetas de Categorías</h3>
+        </div>
+        <p className="settings-hint">Personaliza las imágenes de las 5 tarjetas que aparecen debajo del Hero en la página principal.</p>
+        
+        <input 
+          type="file" 
+          accept="image/*"
+          ref={categoryInputRef}
+          onChange={handleCategoryFileChange}
+          style={{ display: 'none' }}
+        />
+
+        <div className="settings-category-grid">
+          {Object.keys(defaultCategoryImages).map(catKey => (
+            <div key={catKey} className="settings-category-card">
+              <div className="category-img-wrapper">
+                {categoryImages[catKey] ? <img src={categoryImages[catKey]} alt={catKey} /> : <div style={{width: '100%', height: '100%', background: '#111'}}></div>}
+              </div>
+              <div className="category-info">
+                <strong>{catKey.toUpperCase()}</strong>
+                <button 
+                  className="admin-secondary-btn"
+                  onClick={() => {
+                    setUploadingCategory(catKey);
+                    categoryInputRef.current.click();
+                  }}
+                  disabled={uploading}
+                >
+                  {uploading && uploadingCategory === catKey ? 'Subiendo...' : 'Cambiar Imagen'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="settings-section auth-settings-section">
