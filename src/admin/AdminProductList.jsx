@@ -20,14 +20,28 @@ export default function AdminProductList({ category }) {
     setLoading(false);
   };
 
-  const deleteProduct = async (id) => {
-    if (!window.confirm('¿Estás seguro de que deseas eliminar este producto?')) return;
+  const deleteProduct = async (product) => {
+    if (!window.confirm(`¿Estás seguro de que deseas eliminar "${product.name}"?`)) return;
     
-    const { error } = await supabase.from(category).delete().eq('id', id);
+    // 1. Delete image from Cloudflare R2
+    if (product.image_urls && product.image_urls.length > 0) {
+      try {
+        await fetch('/api/delete-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageUrls: product.image_urls })
+        });
+      } catch (err) {
+        console.error('Error deleting image from R2:', err);
+      }
+    }
+
+    // 2. Delete from Supabase
+    const { error } = await supabase.from(category).delete().eq('id', product.id);
     if (error) {
       alert('Error al eliminar: ' + error.message);
     } else {
-      setProducts(products.filter(p => p.id !== id));
+      setProducts(products.filter(p => p.id !== product.id));
     }
   };
 
@@ -73,7 +87,7 @@ export default function AdminProductList({ category }) {
               <td>${product.price}</td>
               <td>{new Date(product.created_at).toLocaleDateString()}</td>
               <td>
-                <button onClick={() => deleteProduct(product.id)} className="admin-icon-btn admin-delete-btn">
+                <button onClick={() => deleteProduct(product)} className="admin-icon-btn admin-delete-btn">
                   <iconify-icon icon="mdi:trash-can-outline" style={{ fontSize: '18px' }}></iconify-icon>
                 </button>
               </td>
