@@ -9,7 +9,11 @@ export default function AdminApp() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.warn('Sesión caducada o inválida. Limpiando caché...');
+        supabase.auth.signOut();
+      }
       setSession(session);
       setLoading(false);
     });
