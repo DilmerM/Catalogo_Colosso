@@ -344,8 +344,8 @@ function App() {
 
 const root = createRoot(document.getElementById('root'));
 
-// Ruta segura para el administrador
-if (window.location.pathname === '/admin-colosso-secreto') {
+// Ruta segura para el administrador (código alfanumérico de 15 caracteres)
+if (window.location.pathname === '/aB3x9Yq2P7vL5kM') {
   root.render(
     <>
       <GlobalModal />
