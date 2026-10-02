@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
+import { modalService } from '../lib/modalService.js';
 
 export default function AdminProductForm({ category, productToEdit, onSaved, onCancel }) {
   const [loading, setLoading] = useState(false);
@@ -68,7 +69,7 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
   };
 
   const removeExistingImage = async (urlToRemove) => {
-    if (!window.confirm('¿Eliminar esta imagen de forma permanente?')) return;
+    if (!(await modalService.confirm('¿Eliminar esta imagen de forma permanente?'))) return;
     
     // Optimistic UI update
     const updatedImages = existingImages.filter(url => url !== urlToRemove);
@@ -170,11 +171,11 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       
       if (error) throw error;
       
-      alert(productToEdit ? 'Producto actualizado correctamente' : 'Producto guardado correctamente');
+      await modalService.alert(productToEdit ? 'Producto actualizado correctamente' : 'Producto guardado correctamente');
       onSaved();
     } catch (err) {
       console.error(err);
-      alert('Error al guardar: ' + err.message);
+      await modalService.alert('Error al guardar: ' + err.message);
     } finally {
       setLoading(false);
     }

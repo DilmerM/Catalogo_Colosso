@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -48,14 +49,37 @@ export default function AdminLogin() {
           
           <div className="admin-form-group">
             <label htmlFor="password">Contraseña</label>
-            <input 
-              id="password"
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required 
-            />
+            <div style={{ position: 'relative' }}>
+              <input 
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required 
+                style={{ paddingRight: '40px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--ink)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                <iconify-icon icon={showPassword ? "mdi:eye-off-outline" : "mdi:eye-outline"} style={{ fontSize: '20px' }}></iconify-icon>
+              </button>
+            </div>
           </div>
 
           <button type="submit" disabled={loading} className="admin-login-btn">

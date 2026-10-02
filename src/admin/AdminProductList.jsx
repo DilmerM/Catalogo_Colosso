@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { modalService } from '../lib/modalService.js';
 
 export default function AdminProductList({ category, onEdit }) {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ export default function AdminProductList({ category, onEdit }) {
   };
 
   const deleteProduct = async (product) => {
-    if (!window.confirm(`¿Estás seguro de que deseas eliminar "${product.name}"?`)) return;
+    if (!(await modalService.confirm(`¿Estás seguro de que deseas eliminar "${product.name}"?`))) return;
     
     // 1. Delete image from Cloudflare R2
     if (product.image_urls && product.image_urls.length > 0) {
@@ -44,7 +45,7 @@ export default function AdminProductList({ category, onEdit }) {
     // 2. Delete from Supabase
     const { error } = await supabase.from(category).delete().eq('id', product.id);
     if (error) {
-      alert('Error al eliminar: ' + error.message);
+      await modalService.alert('Error al eliminar: ' + error.message);
     } else {
       setProducts(products.filter(p => p.id !== product.id));
     }
@@ -61,7 +62,7 @@ export default function AdminProductList({ category, onEdit }) {
     // Update in Supabase
     const { error } = await supabase.from(category).update({ is_active: newActiveState }).eq('id', product.id);
     if (error) {
-      alert('Error al actualizar estado: ' + error.message);
+      await modalService.alert('Error al actualizar estado: ' + error.message);
       // Revert local state on error
       setProducts(products.map(p => 
         p.id === product.id ? { ...p, is_active: !newActiveState } : p

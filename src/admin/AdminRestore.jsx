@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { modalService } from '../lib/modalService.js';
 
 export default function AdminRestore() {
   const [backups, setBackups] = useState([]);
@@ -20,7 +21,7 @@ export default function AdminRestore() {
   };
 
   const handleCreateBackup = async () => {
-    if (!window.confirm('¿Deseas crear un nuevo respaldo de la base de datos ahora?')) return;
+    if (!(await modalService.confirm('¿Deseas crear un nuevo respaldo de la base de datos ahora?'))) return;
     
     setActionLoading(true);
     try {
@@ -28,11 +29,11 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al crear backup');
       
-      alert('Respaldo creado exitosamente.');
+      await modalService.alert('Respaldo creado exitosamente.');
       fetchBackups();
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      await modalService.alert(err.message);
     } finally {
       setActionLoading(false);
     }
@@ -40,7 +41,7 @@ export default function AdminRestore() {
 
   const handleRestore = async (backup) => {
     const confirmMsg = `PELIGRO: Vas a restaurar la base de datos al estado del ${new Date(backup.created_at).toLocaleString()}.\n\nSe sobrescribirán TODOS los productos actuales. Esta acción es irreversible.\n\n¿Estás completamente seguro?`;
-    if (!window.confirm(confirmMsg)) return;
+    if (!(await modalService.confirm(confirmMsg))) return;
 
     setActionLoading(true);
     try {
@@ -52,18 +53,18 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al restaurar backup');
       
-      alert('¡Base de datos restaurada con éxito!');
+      await modalService.alert('¡Base de datos restaurada con éxito!');
       window.location.reload();
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      await modalService.alert(err.message);
     } finally {
       setActionLoading(false);
     }
   };
 
   const handleDeleteBackup = async (backup) => {
-    if (!window.confirm(`¿Estás seguro de que deseas ELIMINAR el respaldo del ${new Date(backup.created_at).toLocaleString()}?\n\nEsto borrará permanentemente el archivo de la nube.`)) return;
+    if (!(await modalService.confirm(`¿Estás seguro de que deseas ELIMINAR el respaldo del ${new Date(backup.created_at).toLocaleString()}?\n\nEsto borrará permanentemente el archivo de la nube.`))) return;
 
     setActionLoading(true);
     try {
@@ -75,11 +76,11 @@ export default function AdminRestore() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Error al eliminar backup');
       
-      alert('Respaldo eliminado.');
+      await modalService.alert('Respaldo eliminado.');
       fetchBackups();
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      await modalService.alert(err.message);
     } finally {
       setActionLoading(false);
     }

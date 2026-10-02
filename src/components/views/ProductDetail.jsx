@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { products } from '../../data/products.js';
 import './ProductDetail.css';
 import GeometricShapes from '../GeometricShapes.jsx';
+import { modalService } from '../../lib/modalService.js';
 
 export default function ProductDetail({ selectedProduct, activeImage, setActiveImage, closeProduct, setFilter, openProduct }) {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -86,9 +87,9 @@ export default function ProductDetail({ selectedProduct, activeImage, setActiveI
 
           <button 
             className="pd-cta" 
-            onClick={() => {
+            onClick={async () => {
               if (selectedProduct.sizes && selectedProduct.sizes.length > 0 && !selectedSize) {
-                alert('Por favor selecciona una talla antes de continuar.');
+                await modalService.alert('Por favor selecciona una talla antes de continuar.');
                 return;
               }
               const phone = "523781498234"; // Real phone number

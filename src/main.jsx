@@ -13,6 +13,7 @@ import ProductDetail from './components/views/ProductDetail.jsx';
 import MachinesView from './components/views/MachinesView.jsx';
 import GeometricShapes from './components/GeometricShapes.jsx';
 import AdminApp from './admin/AdminApp.jsx';
+import GlobalModal from './components/GlobalModal.jsx';
 
 // ── Smooth Scroll ──────────────────────────────────────────────
 function easeInOutQuart(t) {
@@ -342,7 +343,17 @@ function App() {
 const root = createRoot(document.getElementById('root'));
 
 if (window.location.pathname === '/admin') {
-  root.render(<AdminApp />);
+  root.render(
+    <>
+      <GlobalModal />
+      <AdminApp />
+    </>
+  );
 } else {
-  root.render(<App />);
+  root.render(
+    <>
+      <GlobalModal />
+      <App />
+    </>
+  );
 }
