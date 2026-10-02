@@ -1,8 +1,10 @@
 .admin-app {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
   font-family: 'Inter', 'Manrope', sans-serif;
   background-color: #0d0d0d;
   color: #fff;
-  min-height: 100vh;
 }
 
 /* Loading */
