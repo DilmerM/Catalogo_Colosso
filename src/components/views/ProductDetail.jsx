@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import './ProductDetail.css';
 import GeometricShapes from '../GeometricShapes.jsx';
 import { modalService } from '../../lib/modalService.js';
@@ -6,6 +6,34 @@ import { modalService } from '../../lib/modalService.js';
 export default function ProductDetail({ selectedProduct, activeImage, setActiveImage, closeProduct, setFilter, openProduct, allProducts }) {
   const [selectedSize, setSelectedSize] = useState(null);
   
+  const relatedProducts = useMemo(() => {
+    if (!selectedProduct || !allProducts) return [];
+    
+    // Solo productos de la misma categoría y que no sean el actual
+    const sameKind = allProducts.filter(p => p.kind === selectedProduct.kind && p.id !== selectedProduct.id);
+    
+    // Puntuamos las coincidencias
+    const scored = sameKind.map(p => {
+      let score = 0;
+      // Misma marca recibe puntos
+      if (p.brand && selectedProduct.brand && p.brand.toLowerCase() === selectedProduct.brand.toLowerCase()) score += 2;
+      // Mismo tipo (ej. Proteína) recibe puntos
+      if (p.type && selectedProduct.type && p.type.toLowerCase() === selectedProduct.type.toLowerCase()) score += 2;
+      // Mismo género (para ropa)
+      if (p.gender && selectedProduct.gender && p.gender === selectedProduct.gender) score += 1;
+      
+      // Añadimos un factor aleatorio para desempatar y mezclar los productos que tienen el mismo score (o 0)
+      score += Math.random();
+      return { product: p, score };
+    });
+    
+    // Ordenamos de mayor puntuación a menor
+    scored.sort((a, b) => b.score - a.score);
+    
+    // Retornamos los primeros 4
+    return scored.slice(0, 4).map(item => item.product);
+  }, [selectedProduct, allProducts]);
+
   if (!selectedProduct) return null;
 
   return (
@@ -111,11 +139,8 @@ export default function ProductDetail({ selectedProduct, activeImage, setActiveI
       <div className="pd-related">
         <h3>COINCIDENCIAS</h3>
         <div className="pd-related-grid">
-          {allProducts
-            .filter(p => p.kind === selectedProduct.kind && p.name !== selectedProduct.name)
-            .slice(0, 4)
-            .map(p => (
-              <article className="pd-related-card" key={p.name} onClick={() => openProduct(p)}>
+          {relatedProducts.map(p => (
+              <article className="pd-related-card" key={p.id || p.name} onClick={() => openProduct(p)}>
                 <div className="pd-related-card-img">
                   <img src={p.image} alt={p.name} />
                 </div>
