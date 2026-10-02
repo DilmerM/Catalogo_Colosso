@@ -42,14 +42,19 @@ export default async function handler(req, res) {
     const key = decodeURIComponent(urlObj.pathname.substring(1));
     const bucketName = process.env.R2_BUCKET_NAME || process.env.VITE_R2_BUCKET_NAME || 'catalogo';
 
-    const getCmd = new GetObjectCommand({
-      Bucket: bucketName,
-      Key: key
-    });
-    
-    const s3Response = await S3.send(getCmd);
-    const backupJsonString = await s3Response.Body.transformToString();
-    const backupJson = JSON.parse(backupJsonString);
+    let backupJson;
+    try {
+      const getCmd = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: key
+      });
+      
+      const s3Response = await S3.send(getCmd);
+      const backupJsonString = await s3Response.Body.transformToString();
+      backupJson = JSON.parse(backupJsonString);
+    } catch (s3Err) {
+      throw new Error("Fallo al descargar el archivo de R2: " + s3Err.message);
+    }
 
     const { ropa, suplementos, maquinas } = backupJson.data;
 
@@ -96,7 +101,12 @@ export default async function handler(req, res) {
     });
 
     // Run all copies in parallel to avoid Vercel 10s timeout
-    await Promise.allSettled(copyPromises);
+    // We add a 5-second timeout to guarantee Vercel doesn't throw 500 HTML error
+    const timeoutPromise = new Promise(resolve => setTimeout(resolve, 5000));
+    await Promise.race([
+      Promise.allSettled(copyPromises),
+      timeoutPromise
+    ]);
 
     res.status(200).json({ success: true, message: 'Database restored successfully' });
   } catch (error) {

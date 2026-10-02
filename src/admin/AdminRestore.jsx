@@ -62,6 +62,29 @@ export default function AdminRestore() {
     }
   };
 
+  const handleDeleteBackup = async (backup) => {
+    if (!window.confirm(`¿Estás seguro de que deseas ELIMINAR el respaldo del ${new Date(backup.created_at).toLocaleString()}?\n\nEsto borrará permanentemente el archivo de la nube.`)) return;
+
+    setActionLoading(true);
+    try {
+      const res = await fetch('/api/delete-backup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ backup_id: backup.id, file_url: backup.file_url })
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Error al eliminar backup');
+      
+      alert('Respaldo eliminado.');
+      fetchBackups();
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   if (loading) {
     return <div style={{ padding: '20px', color: '#888' }}>Cargando respaldos...</div>;
   }
@@ -106,14 +129,24 @@ export default function AdminRestore() {
                 <td>{new Date(backup.created_at).toLocaleString()}</td>
                 <td>{backup.description}</td>
                 <td>{backup.size_bytes ? `${(backup.size_bytes / 1024).toFixed(2)} KB` : 'Desconocido'}</td>
-                <td>
+                <td style={{ display: 'flex', gap: '8px' }}>
                   <button 
                     onClick={() => handleRestore(backup)} 
                     className="admin-primary-btn"
                     style={{ background: '#d93225', padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
                     disabled={actionLoading}
+                    title="Restaurar"
                   >
                     <iconify-icon icon="mdi:backup-restore"></iconify-icon> Restaurar
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteBackup(backup)} 
+                    className="admin-secondary-btn"
+                    style={{ padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
+                    disabled={actionLoading}
+                    title="Eliminar"
+                  >
+                    <iconify-icon icon="mdi:delete-outline"></iconify-icon>
                   </button>
                 </td>
               </tr>
