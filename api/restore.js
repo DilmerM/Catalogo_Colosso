@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { S3Client, CopyObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, CopyObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
@@ -37,12 +37,20 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'Backup not found' });
     }
 
-    // 2. Fetch JSON from R2 via public URL
-    const response = await fetch(backupRecord.file_url);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch backup file: ${response.statusText}`);
-    }
-    const backupJson = await response.json();
+    // 2. Fetch JSON from R2 securely via S3 API
+    const urlObj = new URL(backupRecord.file_url);
+    const key = decodeURIComponent(urlObj.pathname.substring(1));
+    const bucketName = process.env.R2_BUCKET_NAME || process.env.VITE_R2_BUCKET_NAME || 'catalogo';
+
+    const getCmd = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: key
+    });
+    
+    const s3Response = await S3.send(getCmd);
+    const backupJsonString = await s3Response.Body.transformToString();
+    const backupJson = JSON.parse(backupJsonString);
+
     const { ropa, suplementos, maquinas } = backupJson.data;
 
     // 3. Clear tables (Not using ID trick, use not.is.null)
