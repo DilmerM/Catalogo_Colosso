@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 import './responsive-overrides.css';
 
-import { products } from './data/products.js';
+import { supabase } from './lib/supabase';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import MobileMenu from './components/MobileMenu.jsx';
@@ -51,6 +51,7 @@ function handleNavClick(e) {
 function App() {
   const [light, setLight] = useState(false);
   const [filter, setFilter] = useState('TODO');
+  const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showMachines, setShowMachines] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
@@ -93,6 +94,33 @@ function App() {
     }
     return () => clearInterval(interval);
   }, [selectedProduct, activeImage]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const { data, error } = await supabase.from('ropa').select('*').order('created_at', { ascending: false });
+      if (!error && data) {
+        // Map Supabase schema to frontend schema
+        const mappedProducts = data.map(p => {
+          let kind = 'ROPA';
+          const name = p.name.toUpperCase();
+          if (name.includes('PLAYERA') || name.includes('OVERSIZE')) kind = 'PLAYERAS';
+          if (name.includes('TOP')) kind = 'TOPS';
+          if (name.includes('SHORT')) kind = 'SHORTS';
+
+          return {
+            ...p,
+            kind,
+            sub: p.gender === 'Mujer' ? 'MUJER' : (p.gender === 'Hombre' ? 'HOMBRE' : 'UNISEX'),
+            image: p.image_urls && p.image_urls.length > 0 ? p.image_urls[0] : '',
+            images: p.image_urls || [],
+            price: `$${p.price.toFixed(2)} MXN`
+          };
+        });
+        setProducts(mappedProducts);
+      }
+    }
+    fetchProducts();
+  }, []);
 
   const visibleProducts = filter === 'TODO' ? products : products.filter(p => p.kind === filter);
   

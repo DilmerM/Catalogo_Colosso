@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
 export default function Home({ heroProduct, openProduct, setFilter }) {
+  if (!heroProduct) return null;
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
