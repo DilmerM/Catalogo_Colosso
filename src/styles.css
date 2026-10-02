@@ -45,16 +45,19 @@
 .nav-search-input {
   background: transparent;
   border: none;
-  color: inherit;
+  color: var(--ink); /* Explicit color */
   font-family: inherit;
   font-size: 0.9rem;
   width: 100%;
   outline: none;
 }
+.nav-search-input::placeholder {
+  color: var(--muted);
+}
 .search-clear {
   background: none;
   border: none;
-  color: #888;
+  color: var(--muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -135,4 +138,25 @@
   text-align: center;
   font-size: 0.9rem;
   color: #888;
+}
+
+/* ── Navbar Fixes ── */
+.app > .nav {
+  z-index: 9999 !important; /* Ensure nav is above everything, including hero text */
+}
+
+@media (max-width: 800px) {
+  .nav {
+    height: auto !important;
+    min-height: 67px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    flex-wrap: wrap;
+  }
+  .nav-search-container {
+    margin: 10px 0 5px !important;
+    max-width: 100% !important;
+    order: 3;
+    flex-basis: 100%;
+  }
 }
