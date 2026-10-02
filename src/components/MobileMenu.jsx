@@ -42,14 +42,28 @@ export default function MobileMenu({ closeProduct, setShowMachines }) {
         <span className="hbg-line"></span>
       </button>
       {(open || animating) && (
-        <nav className={navClass}>
-          <a href="#inicio" onClick={handleNav}>Inicio</a>
-          <a href="#equipo-fuerza" onClick={handleNav}>Asesoría Gyms</a>
-          <a href="#tienda" onClick={handleNav}>Suplementos</a>
-          <a href="#" onClick={handleMachines}>Máquinas</a>
-          <a href="#ubicacion" onClick={handleNav}>Ubicación</a>
-          <a href="https://wa.me/523781498234" target="_blank" rel="noreferrer">WhatsApp</a>
-        </nav>
+        <>
+          <div 
+            className="mobile-menu-overlay" 
+            onClick={toggle}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: -1
+            }}
+          />
+          <nav className={navClass}>
+            <a href="#inicio" onClick={handleNav}>Inicio</a>
+            <a href="#equipo-fuerza" onClick={handleNav}>Asesoría Gyms</a>
+            <a href="#tienda" onClick={handleNav}>Suplementos</a>
+            <a href="#" onClick={handleMachines}>Máquinas</a>
+            <a href="#ubicacion" onClick={handleNav}>Ubicación</a>
+            <a href="https://wa.me/523781498234" target="_blank" rel="noreferrer">WhatsApp</a>
+          </nav>
+        </>
       )}
     </div>
   );
