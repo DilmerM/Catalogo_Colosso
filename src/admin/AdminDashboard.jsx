@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import AdminProductList from './AdminProductList';
+import AdminProductForm from './AdminProductForm';
 
 export default function AdminDashboard({ session }) {
   const [activeTab, setActiveTab] = useState('ropa');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -26,25 +29,25 @@ export default function AdminDashboard({ session }) {
         <nav className="admin-nav">
           <button 
             className={activeTab === 'ropa' ? 'active' : ''} 
-            onClick={() => { setActiveTab('ropa'); setIsSidebarOpen(false); }}
+            onClick={() => { setActiveTab('ropa'); setIsSidebarOpen(false); setIsAdding(false); }}
           >
             <iconify-icon icon="mdi:tshirt-crew-outline" style={{ fontSize: '20px' }}></iconify-icon> Ropa
           </button>
           <button 
             className={activeTab === 'suplementos' ? 'active' : ''} 
-            onClick={() => { setActiveTab('suplementos'); setIsSidebarOpen(false); }}
+            onClick={() => { setActiveTab('suplementos'); setIsSidebarOpen(false); setIsAdding(false); }}
           >
             <iconify-icon icon="mdi:shaker-outline" style={{ fontSize: '20px' }}></iconify-icon> Suplementos
           </button>
           <button 
             className={activeTab === 'maquinas' ? 'active' : ''} 
-            onClick={() => { setActiveTab('maquinas'); setIsSidebarOpen(false); }}
+            onClick={() => { setActiveTab('maquinas'); setIsSidebarOpen(false); setIsAdding(false); }}
           >
             <iconify-icon icon="mdi:dumbbell" style={{ fontSize: '20px' }}></iconify-icon> Máquinas
           </button>
           <button 
             className={activeTab === 'config' ? 'active' : ''} 
-            onClick={() => { setActiveTab('config'); setIsSidebarOpen(false); }}
+            onClick={() => { setActiveTab('config'); setIsSidebarOpen(false); setIsAdding(false); }}
           >
             <iconify-icon icon="mdi:cog-outline" style={{ fontSize: '20px' }}></iconify-icon> Configuración
           </button>
@@ -63,14 +66,26 @@ export default function AdminDashboard({ session }) {
             </button>
             <h2>Gestión de {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
           </div>
-          <button className="admin-primary-btn">+ Añadir Producto</button>
+          {!isAdding && activeTab !== 'config' && (
+            <button className="admin-primary-btn" onClick={() => setIsAdding(true)}>+ Añadir Producto</button>
+          )}
         </header>
         
         <div className="admin-content-area">
-          <div className="admin-empty-state">
-            <p>Aún no hay productos en esta categoría.</p>
-            <span>Pronto conectaremos esta tabla con la base de datos de Supabase.</span>
-          </div>
+          {activeTab === 'config' ? (
+            <div className="admin-empty-state">
+              <p>Configuración de la app</p>
+              <span>(En desarrollo)</span>
+            </div>
+          ) : isAdding ? (
+            <AdminProductForm 
+              category={activeTab} 
+              onSaved={() => setIsAdding(false)} 
+              onCancel={() => setIsAdding(false)} 
+            />
+          ) : (
+            <AdminProductList category={activeTab} />
+          )}
         </div>
       </main>
     </div>
