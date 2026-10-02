@@ -222,10 +222,10 @@ function App() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           <div className="map-wrap" style={{ border: '5px solid var(--red)', boxSizing: 'border-box', width: '100%', maxWidth: 'none', margin: 0, height: '500px' }}>
-            <iframe title="Mapa de ubicación de demostración en Guadalajara, Jalisco" src="https://www.openstreetmap.org/export/embed.html?bbox=-103.395%2C20.655%2C-103.335%2C20.705&amp;layer=mapnik&amp;marker=20.680%2C-103.365" loading="lazy" style={{ width: '100%', height: '100%', border: 'none' }}></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4342.49992037509!2d-103.45457881520792!3d20.77227613134304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428af781134816f%3A0x98e1753ed19c581!2sColosso%20Genesis!5e1!3m2!1ses-419!2shn!4v1790920438833!5m2!1ses-419!2shn" loading="lazy" style={{ width: '100%', height: '100%', border: 'none' }} allowFullScreen="" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=20.680,-103.365" target="_blank" rel="noreferrer" className="button red" style={{ padding: '15px 40px', fontSize: '18px', width: '100%', textAlign: 'center' }}>CÓMO LLEGAR EN GOOGLE MAPS <span>↗</span></a>
+            <a href="https://maps.app.goo.gl/rXczpGydwjGM5TG69" target="_blank" rel="noreferrer" className="button red" style={{ padding: '15px 40px', fontSize: '18px', width: '100%', textAlign: 'center' }}>CÓMO LLEGAR EN GOOGLE MAPS <span>↗</span></a>
           </div>
         </div>
       </section>
