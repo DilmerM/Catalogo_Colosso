@@ -50,14 +50,38 @@ export default function Shop({ filter, setFilter, visibleProducts, openProduct }
         </motion.div>
       </div>
       
-      <motion.div className="category-cards" variants={fadeInUp}>
-        <button onClick={() => setFilter('PLAYERAS')}><span>01</span><strong>PLAYERAS</strong><small>Oversize · Sudaderas</small></button>
-        <button onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small></button>
-        <button onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small></button>
-        <button onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small></button>
-        <button onClick={() => setFilter('ALL_PRODUCTS')}><span>05</span><strong>TODOS LOS PRODUCTOS</strong><small>Catálogo completo</small></button>
-        <button onClick={() => setFilter('ROPA')}><span>06</span><strong>PANTALONES</strong><small>Pants · Ropa deportiva</small></button>
-      </motion.div>
+      <div className="category-cards">
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('PLAYERAS')}><span>01</span><strong>PLAYERAS</strong><small>Oversize · Sudaderas</small>
+        </motion.button>
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('TOPS')}><span>02</span><strong>TOPS</strong><small>Tops deportivos · Crop tops</small>
+        </motion.button>
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('SHORTS')}><span>03</span><strong>SHORTS</strong><small>Shorts · Entrenamiento</small>
+        </motion.button>
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('SUPLEMENTOS')}><span>04</span><strong>SUPLEMENTOS</strong><small>Proteínas · Pre-entrenos</small>
+        </motion.button>
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('ALL_PRODUCTS')}><span>05</span><strong>TODOS LOS PRODUCTOS</strong><small>Catálogo completo</small>
+        </motion.button>
+        <motion.button 
+          initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} 
+          variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4 } } }}
+          onClick={() => setFilter('ROPA')}><span>06</span><strong>PANTALONES</strong><small>Pants · Ropa deportiva</small>
+        </motion.button>
+      </div>
       
       <motion.div 
         key={filter}
