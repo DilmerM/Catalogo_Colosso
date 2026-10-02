@@ -58,7 +58,7 @@ export default function AdminDashboard({ session }) {
             onClick={() => { setActiveTab('restore'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Restore Backup"
           >
-            <iconify-icon icon="mdi:database-restore" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Restore Backup</span>}
+            <iconify-icon icon="mdi:backup-restore" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Restore Backup</span>}
           </button>
           <button 
             className={activeTab === 'config' ? 'active' : ''} 
@@ -97,7 +97,7 @@ export default function AdminDashboard({ session }) {
             </div>
           ) : activeTab === 'restore' ? (
             <div className="admin-empty-state">
-              <iconify-icon icon="mdi:database-restore" style={{ fontSize: '48px', color: '#666', marginBottom: '10px' }}></iconify-icon>
+              <iconify-icon icon="mdi:backup-restore" style={{ fontSize: '48px', color: '#666', marginBottom: '10px' }}></iconify-icon>
               <p>Restore Backup</p>
               <span>Esta función estará disponible próximamente para restaurar copias de seguridad de la base de datos.</span>
             </div>
