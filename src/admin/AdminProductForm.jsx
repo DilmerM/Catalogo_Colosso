@@ -15,6 +15,19 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
   const [imageFile, setImageFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [existingImages, setExistingImages] = useState([]);
+  const [draggedIndex, setDraggedIndex] = useState(null);
+
+  const handleDragStart = (index) => setDraggedIndex(index);
+  const handleDragOver = (e) => e.preventDefault();
+  const handleDrop = (index) => {
+    if (draggedIndex === null || draggedIndex === index) return;
+    const newImages = [...existingImages];
+    const draggedItem = newImages[draggedIndex];
+    newImages.splice(draggedIndex, 1);
+    newImages.splice(index, 0, draggedItem);
+    setExistingImages(newImages);
+    setDraggedIndex(null);
+  };
 
   useEffect(() => {
     if (productToEdit) {
@@ -184,6 +197,12 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
 
   return (
     <form onSubmit={handleSubmit} className="admin-product-form">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <button type="button" onClick={onCancel} className="admin-back-btn" style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '14px' }}>
+          <iconify-icon icon="mdi:arrow-left"></iconify-icon> Regresar
+        </button>
+      </div>
+
       <div className="form-row">
         <div className="admin-form-group">
           <label>Nombre del Producto</label>
@@ -304,13 +323,25 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
       )}
 
       <div className="admin-form-group">
-        <label>Imágenes del Producto</label>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <label>Imágenes del Producto</label>
+          <small style={{ color: existingImages.length >= 5 ? '#ff6b6b' : '#888', fontSize: '0.8rem' }}>
+            Imágenes: {existingImages.length + (previewUrl ? 1 : 0)} / 5
+          </small>
+        </div>
+        
         <div className="admin-image-upload-container">
-          
           <div className="admin-image-previews">
             {existingImages.map((url, index) => (
-              <div key={index} className="admin-preview-item">
-                <img src={url} alt={`Preview ${index}`} />
+              <div 
+                key={index} 
+                className="admin-preview-item draggable-item"
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragOver={handleDragOver}
+                onDrop={() => handleDrop(index)}
+              >
+                <img src={url} alt={`Preview ${index}`} style={{ pointerEvents: 'none' }} />
                 <button type="button" className="admin-preview-delete" onClick={() => removeExistingImage(url)} title="Eliminar imagen">
                   <iconify-icon icon="mdi:close" style={{ fontSize: '16px' }}></iconify-icon>
                 </button>
@@ -327,11 +358,17 @@ export default function AdminProductForm({ category, productToEdit, onSaved, onC
           </div>
 
           <div className="admin-file-input-wrapper">
-            <label className="admin-file-btn">
-              <iconify-icon icon="mdi:cloud-upload-outline" style={{ fontSize: '24px' }}></iconify-icon>
-              <span>{imageFile ? 'Cambiar archivo seleccionado' : 'Seleccionar archivo...'}</span>
-              <input type="file" accept="image/*" onChange={handleImageChange} />
-            </label>
+            {(existingImages.length + (previewUrl ? 1 : 0)) < 5 ? (
+              <label className="admin-file-btn">
+                <iconify-icon icon="mdi:cloud-upload-outline" style={{ fontSize: '24px' }}></iconify-icon>
+                <span>{imageFile ? 'Cambiar archivo seleccionado' : 'Seleccionar archivo...'}</span>
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+              </label>
+            ) : (
+              <div style={{ padding: '15px', textAlign: 'center', color: '#ff6b6b', background: '#331a1a', borderRadius: '4px', border: '1px solid #ff6b6b' }}>
+                Has alcanzado el límite máximo de 5 imágenes.
+              </div>
+            )}
           </div>
         </div>
       </div>

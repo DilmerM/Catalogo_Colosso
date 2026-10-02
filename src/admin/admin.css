@@ -658,3 +658,14 @@
 .admin-preview-delete:hover {
   background: #ff6b6b;
 }
+
+/* Drag and Drop */
+.draggable-item {
+  cursor: grab;
+}
+.draggable-item:active {
+  cursor: grabbing;
+}
+.admin-back-btn:hover {
+  color: #fff !important;
+}
