@@ -3,14 +3,14 @@ import { motion } from 'framer-motion';
 import GeometricShapes from '../GeometricShapes.jsx';
 
 export default function Shop({ filter, setFilter, visibleProducts, openProduct }) {
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(30);
 
   // Reset pagination when category changes
   useEffect(() => {
     if (filter === 'ALL_PRODUCTS') {
       setVisibleCount(1000); // Show all
     } else {
-      setVisibleCount(6);
+      setVisibleCount(30);
     }
   }, [filter]);
 
