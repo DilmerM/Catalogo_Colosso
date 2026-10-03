@@ -159,6 +159,12 @@ html:has(.admin-app) body {
   .sidebar-collapsed .admin-sidebar {
     width: 70px;
   }
+  .sidebar-collapsed .admin-sidebar-header h3 {
+    display: none;
+  }
+  .sidebar-collapsed .nav-text {
+    display: none;
+  }
 }
 .admin-sidebar-header {
   padding: 25px 20px;
@@ -371,12 +377,17 @@ html:has(.admin-app) body {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height */
+    padding-bottom: env(safe-area-inset-bottom);
     width: 260px;
     z-index: 100;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     will-change: transform;
+  }
+  
+  .admin-toggle-sidebar {
+    display: none; /* Never show collapse toggle on mobile */
   }
   
   .admin-dashboard.mobile-sidebar-open .admin-sidebar {

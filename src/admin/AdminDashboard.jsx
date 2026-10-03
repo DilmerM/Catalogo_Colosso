@@ -29,7 +29,7 @@ export default function AdminDashboard({ session }) {
 
       <aside className="admin-sidebar">
         <div className="admin-sidebar-header">
-          {!isSidebarCollapsed && <h3>Colosso Admin</h3>}
+          <h3>Colosso Admin</h3>
           <button className="admin-toggle-sidebar" onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}>
             <iconify-icon icon={isSidebarCollapsed ? "mdi:menu-right" : "mdi:menu-left"} style={{ fontSize: '24px' }}></iconify-icon>
           </button>
@@ -43,41 +43,41 @@ export default function AdminDashboard({ session }) {
             onClick={() => { setActiveTab('ropa'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Ropa"
           >
-            <iconify-icon icon="mdi:tshirt-crew-outline" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Ropa</span>}
+            <iconify-icon icon="mdi:tshirt-crew-outline" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Ropa</span>
           </button>
           <button 
             className={activeTab === 'suplementos' ? 'active' : ''} 
             onClick={() => { setActiveTab('suplementos'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Suplementos"
           >
-            <iconify-icon icon="mdi:shaker-outline" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Suplementos</span>}
+            <iconify-icon icon="mdi:shaker-outline" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Suplementos</span>
           </button>
           <button 
             className={activeTab === 'maquinas' ? 'active' : ''} 
             onClick={() => { setActiveTab('maquinas'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Máquinas"
           >
-            <iconify-icon icon="mdi:dumbbell" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Máquinas</span>}
+            <iconify-icon icon="mdi:dumbbell" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Máquinas</span>
           </button>
           <button 
             className={activeTab === 'restore' ? 'active' : ''} 
             onClick={() => { setActiveTab('restore'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Restore Backup"
           >
-            <iconify-icon icon="mdi:backup-restore" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Restore Backup</span>}
+            <iconify-icon icon="mdi:backup-restore" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Restore Backup</span>
           </button>
           <button 
             className={activeTab === 'config' ? 'active' : ''} 
             onClick={() => { setActiveTab('config'); setIsMobileMenuOpen(false); setIsAdding(false); setEditingProduct(null); }}
             title="Configuración"
           >
-            <iconify-icon icon="mdi:cog-outline" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Configuración</span>}
+            <iconify-icon icon="mdi:cog-outline" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Configuración</span>
           </button>
         </nav>
         <div className="admin-sidebar-footer">
-          {!isSidebarCollapsed && <small>{session.user.email}</small>}
+          <small className="nav-text">{session.user.email}</small>
           <button onClick={handleLogout} className="admin-logout-btn" title="Cerrar Sesión">
-            <iconify-icon icon="mdi:logout" style={{ fontSize: '20px' }}></iconify-icon> {!isSidebarCollapsed && <span>Cerrar Sesión</span>}
+            <iconify-icon icon="mdi:logout" style={{ fontSize: '20px' }}></iconify-icon> <span className="nav-text">Cerrar Sesión</span>
           </button>
         </div>
       </aside>
