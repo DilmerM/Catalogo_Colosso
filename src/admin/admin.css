@@ -221,7 +221,7 @@ html:has(.admin-app) body {
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -381,7 +381,8 @@ html:has(.admin-app) body {
     padding-bottom: env(safe-area-inset-bottom);
     width: 260px;
     z-index: 100;
-    transform: translateX(-100%);
+    transform: translateX(-100%) translateZ(0); /* Force 3D to stop iOS text scaling bug */
+    -webkit-font-smoothing: antialiased;
     transition: transform 0.3s ease;
     will-change: transform;
   }
@@ -391,7 +392,7 @@ html:has(.admin-app) body {
   }
   
   .admin-dashboard.mobile-sidebar-open .admin-sidebar {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
   
   .admin-sidebar-overlay {
