@@ -155,8 +155,10 @@ html:has(.admin-app) body {
   height: 100%;
   overflow-y: auto;
 }
-.sidebar-collapsed .admin-sidebar {
-  width: 70px;
+@media (min-width: 769px) {
+  .sidebar-collapsed .admin-sidebar {
+    width: 70px;
+  }
 }
 .admin-sidebar-header {
   padding: 25px 20px;
@@ -217,12 +219,14 @@ html:has(.admin-app) body {
   white-space: nowrap;
   overflow: hidden;
 }
-.sidebar-collapsed .admin-nav button {
-  padding: 12px;
-  justify-content: center;
-}
-.sidebar-collapsed .admin-nav button iconify-icon {
-  margin: 0;
+@media (min-width: 769px) {
+  .sidebar-collapsed .admin-nav button {
+    padding: 12px;
+    justify-content: center;
+  }
+  .sidebar-collapsed .admin-nav button iconify-icon {
+    margin: 0;
+  }
 }
 .admin-nav button:hover {
   background: #2a2a2a;
@@ -261,9 +265,11 @@ html:has(.admin-app) body {
   gap: 8px;
   width: 100%;
 }
-.sidebar-collapsed .admin-logout-btn {
-  padding: 8px;
-  justify-content: center;
+@media (min-width: 769px) {
+  .sidebar-collapsed .admin-logout-btn {
+    padding: 8px;
+    justify-content: center;
+  }
 }
 .admin-logout-btn:hover {
   background: #333;
