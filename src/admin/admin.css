@@ -126,6 +126,8 @@
 .admin-dashboard {
   display: flex;
   height: 100vh;
+  width: 100vw;
+  max-width: 100%;
   overflow: hidden;
 }
 .admin-sidebar {
@@ -259,6 +261,9 @@
   background: #0d0d0d;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  width: 100%;
 }
 .admin-topbar {
   padding: 25px 40px;
@@ -318,6 +323,9 @@
 .admin-content-area {
   padding: 40px;
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 .admin-empty-state {
   background: #1a1a1a;
