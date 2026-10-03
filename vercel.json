@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/p/(?<cat>[^/]+)/(?<slug>[^/]+)",
-      "destination": "/api/share?cat=$cat&slug=$slug"
+      "source": "/p/([^/]+)/([^/]+)",
+      "destination": "/api/share?cat=$1&slug=$2"
     },
     {
       "source": "/(.*)",
