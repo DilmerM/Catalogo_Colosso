@@ -92,8 +92,8 @@ export default function AdminRestore() {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div className="admin-list-controls">
+    <div style={{ padding: '20px', maxWidth: '100%', boxSizing: 'border-box' }}>
+      <div className="admin-list-controls" style={{ flexWrap: 'wrap' }}>
         <h2 style={{ margin: 0, fontSize: '20px' }}>Gestión de Respaldos (Backup & Restore)</h2>
         <button 
           onClick={handleCreateBackup} 
@@ -106,7 +106,7 @@ export default function AdminRestore() {
         </button>
       </div>
 
-      <div style={{ background: '#2a1a1a', padding: '15px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #4a2a2a', color: '#ffaaaa' }}>
+      <div style={{ background: '#2a1a1a', padding: '15px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #4a2a2a', color: '#ffaaaa', fontSize: '14px', lineHeight: '1.5' }}>
         <strong>Nota sobre Imágenes:</strong> Cuando eliminas una imagen, se envía a la Papelera oculta en la nube. Al restaurar un backup viejo, el sistema intentará recuperar las imágenes de esa papelera automáticamente.
       </div>
 
@@ -116,46 +116,43 @@ export default function AdminRestore() {
           <p>No hay respaldos disponibles</p>
         </div>
       ) : (
-        <div style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-          <table className="admin-table" style={{ minWidth: '600px' }}>
-            <thead>
-              <tr>
-                <th>Fecha y Hora</th>
-                <th>Descripción</th>
-                <th>Tamaño</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {backups.map(backup => (
-                <tr key={backup.id}>
-                  <td>{new Date(backup.created_at).toLocaleString()}</td>
-                  <td>{backup.description}</td>
-                  <td>{backup.size_bytes ? `${(backup.size_bytes / 1024).toFixed(2)} KB` : 'Desconocido'}</td>
-                  <td style={{ display: 'flex', gap: '8px' }}>
-                    <button 
-                      onClick={() => handleRestore(backup)} 
-                      className="admin-primary-btn"
-                      style={{ background: '#d93225', padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
-                      disabled={actionLoading}
-                      title="Restaurar"
-                    >
-                      <iconify-icon icon="mdi:backup-restore"></iconify-icon> Restaurar
-                    </button>
-                    <button 
-                      onClick={() => handleDeleteBackup(backup)} 
-                      className="admin-secondary-btn"
-                      style={{ padding: '8px 15px', display: 'flex', alignItems: 'center', gap: '5px' }}
-                      disabled={actionLoading}
-                      title="Eliminar"
-                    >
-                      <iconify-icon icon="mdi:delete-outline"></iconify-icon>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="restore-cards">
+          {backups.map(backup => (
+            <div className="restore-card" key={backup.id}>
+              <div className="restore-card-info">
+                <div className="restore-card-row">
+                  <span className="restore-card-label">Fecha y Hora</span>
+                  <span className="restore-card-value">{new Date(backup.created_at).toLocaleString()}</span>
+                </div>
+                <div className="restore-card-row">
+                  <span className="restore-card-label">Descripción</span>
+                  <span className="restore-card-value">{backup.description}</span>
+                </div>
+                <div className="restore-card-row">
+                  <span className="restore-card-label">Tamaño</span>
+                  <span className="restore-card-value">{backup.size_bytes ? `${(backup.size_bytes / 1024).toFixed(2)} KB` : 'Desconocido'}</span>
+                </div>
+              </div>
+              <div className="restore-card-actions">
+                <button 
+                  onClick={() => handleRestore(backup)} 
+                  className="admin-primary-btn"
+                  style={{ padding: '10px 18px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px' }}
+                  disabled={actionLoading}
+                >
+                  <iconify-icon icon="mdi:backup-restore"></iconify-icon> Restaurar
+                </button>
+                <button 
+                  onClick={() => handleDeleteBackup(backup)} 
+                  className="admin-secondary-btn"
+                  style={{ padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '5px' }}
+                  disabled={actionLoading}
+                >
+                  <iconify-icon icon="mdi:delete-outline"></iconify-icon>
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
