@@ -305,7 +305,7 @@ function App() {
               <iconify-icon icon="mdi:clock-outline" style={{ color: 'var(--red)', fontSize: '32px' }}></iconify-icon>
               <div>
                 <strong style={{ display: 'block', fontSize: '18px', fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.02em', marginBottom: '8px', color: 'var(--ink)' }}>HORARIO</strong>
-                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Lunes a Viernes: 5:30 AM - 11:00 PM<br/>Sábados: 7:00 AM - 9:00 PM</p>
+                <p style={{ margin: 0, fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', fontFamily: 'Inter, sans-serif' }}>Lunes a Viernes: 6:00 AM - 11:00 PM<br/>Sábado y Domingo: 8:00 AM - 4:00 PM</p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
