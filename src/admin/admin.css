@@ -5,6 +5,11 @@
   font-family: 'Inter', 'Manrope', sans-serif;
   background-color: #0d0d0d;
   color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+.admin-app *, .admin-app *::before, .admin-app *::after {
+  box-sizing: border-box;
 }
 
 /* Loading */
@@ -125,9 +130,8 @@
 /* Dashboard */
 .admin-dashboard {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .admin-sidebar {
@@ -263,7 +267,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-width: 0;
-  width: 100%;
 }
 .admin-topbar {
   padding: 25px 40px;
@@ -523,9 +526,11 @@
 .admin-list-controls {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 15px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 .admin-search-box {
   display: flex;
