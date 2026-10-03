@@ -160,10 +160,12 @@ html:has(.admin-app) body {
     width: 70px;
   }
   .sidebar-collapsed .admin-sidebar-header h3 {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }
   .sidebar-collapsed .nav-text {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 .admin-sidebar-header {
@@ -177,6 +179,8 @@ html:has(.admin-app) body {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
 }
 .admin-toggle-sidebar {
   background: none;
@@ -218,17 +222,20 @@ html:has(.admin-app) body {
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.95rem;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, padding 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
 }
+.nav-text {
+  transition: opacity 0.3s ease;
+}
 @media (min-width: 769px) {
   .sidebar-collapsed .admin-nav button {
-    padding: 12px;
-    justify-content: center;
+    padding: 12px 25px; /* centers the 20px icon in 70px width */
   }
   .sidebar-collapsed .admin-nav button iconify-icon {
     margin: 0;
@@ -261,20 +268,21 @@ html:has(.admin-app) body {
   background: #2a2a2a;
   border: 1px solid #444;
   color: #fff;
-  padding: 8px;
+  padding: 8px 15px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background 0.2s, padding 0.3s ease;
 }
 @media (min-width: 769px) {
   .sidebar-collapsed .admin-logout-btn {
-    padding: 8px;
-    justify-content: center;
+    padding: 8px 25px; /* centers the 20px icon in 70px width */
   }
 }
 .admin-logout-btn:hover {
@@ -381,10 +389,9 @@ html:has(.admin-app) body {
     padding-bottom: env(safe-area-inset-bottom);
     width: 260px;
     z-index: 100;
-    transform: translateX(-100%) translateZ(0); /* Force 3D to stop iOS text scaling bug */
-    -webkit-font-smoothing: antialiased;
-    transition: transform 0.3s ease;
-    will-change: transform;
+    transform: translateX(-100%) translate3d(0, 0, 0); /* Force 3D */
+    -webkit-font-smoothing: subpixel-antialiased;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .admin-toggle-sidebar {
